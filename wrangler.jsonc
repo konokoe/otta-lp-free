@@ -5,5 +5,11 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "otta-free.konokoe.design",
+      "custom_domain": true
+    }
+  ]
 }
