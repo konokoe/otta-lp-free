@@ -1,0 +1,150 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
+import mapImg from '../assets/section03-main.png';
+import cardImg1 from '../assets/section03-content-01.png';
+import cardImg2 from '../assets/section03-content-02.png';
+import { en } from '../lib/en';
+
+const cards = [
+  {
+    img: cardImg1,
+    title: '街中に広がる見守り\nスポット',
+    body: '駅・コンビニ・電柱・自販機など、街のあらゆる場所に見守りスポット。',
+  },
+  {
+    img: cardImg2,
+    title: '警察と連携した\n見守りネットワーク',
+    body: '万が一の際は、ottaから警察へ位置情報履歴を開示。早期発見につながる。',
+  },
+];
+---
+
+<section class="network" id="network">
+  <div class="network__inner">
+
+    <Heading title="見守りネットワーク" sub="NETWORK" />
+
+    <!-- BLE説明グループ -->
+    <div class="network__group">
+      <h3 class="network__sub-heading"><span class="en">BLE</span>サービスとは？</h3>
+
+      <div class="network__map-img">
+        <Image src={mapImg} alt="" class="network__map-img-inner" format="avif" />
+      </div>
+
+      <p class="network__body">
+        <span class="en">otta</span>の<span class="en">BLE</span>見守りサービスは、小さな端末を持ち歩くだけで街中の見守りスポットが位置を自動で記録。充電不要・操作不要で、家族の負担なく続けられる見守りサービスです。
+      </p>
+    </div>
+
+    <!-- 2カード -->
+    <div class="network__cards">
+      {cards.map(card => (
+        <div class="network__card">
+          <div class="network__card-img">
+            <Image src={card.img} alt="" class="network__card-img-inner" format="avif" />
+          </div>
+          <h4 class="network__card-title">
+            {card.title.split('\n').map((line, i) => (
+              <span><Fragment set:html={en(line)} />{i < card.title.split('\n').length - 1 && <br class="br-sp" />}</span>
+            ))}
+          </h4>
+          <p class="network__card-body" set:html={en(card.body)}></p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .network {
+    background-color: var(--c-g-000);
+    padding-top: var(--section-pt);
+  }
+
+  .network__inner {
+    padding-inline: var(--section-px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+
+  /* 見出し・画像・テキストをまとめたグループ */
+  .network__group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .network__sub-heading {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--c-text);
+  }
+
+  /* ネットワーク図 */
+  .network__map-img {
+    width: 100%;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .network__map-img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* 説明テキスト */
+  .network__body {
+    font-size: var(--fs-m);
+    color: var(--c-text);
+    line-height: 1.75;
+  }
+
+  /* 2カード */
+  .network__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .network__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .network__card-img {
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .network__card-img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .br-sp { display: block; }
+
+  @media (min-width: 769px) {
+    .br-sp { display: none; }
+  }
+
+  .network__card-title {
+    font-size: var(--fs-h4);
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.5;
+  }
+
+  .network__card-body {
+    font-size: var(--fs-m);
+    color: var(--c-text);
+    line-height: 1.7;
+  }
+</style>

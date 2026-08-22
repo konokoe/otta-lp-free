@@ -1,0 +1,9 @@
+{
+  "name": "otta-lp-free",
+  "compatibility_date": "2025-06-04",
+  "main": "./worker.ts",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  }
+}

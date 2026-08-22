@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+/* =====================
+   Design Tokens
+   ===================== */
+:root {
+  /* Brand */
+  --c-yellow: #D5B95E;
+  --c-red:    #BF4D4D;
+  --c-green:  #80B6A0;
+  --c-blue:   #5E87BE;
+  --c-dark:   #2C4C75;
+
+  /* Gray */
+  --c-g-000:  #FFFFFF;
+  --c-g-100:  #F6F5F3;
+  --c-g-200:  #EBEAE5;
+  --c-g-300:  #DBD8D1;
+  --c-g-400:  #AFA99C;
+  --c-g-500:  #80796B;
+  --c-g-600:  #635B4B;
+  --c-g-700:  #514837;
+  --c-g-800:  #372F1F;
+  --c-g-900:  #271D11;
+  --c-g-1000: #000000;
+
+  /* Text */
+  --c-text:       #3E2A25;
+  --c-text-muted: #7A7068;
+
+  /* Typography — clamp(min, vw, max) */
+  --fs-h1: clamp(1.75rem,  5vw,   2.25rem);
+  --fs-h2: clamp(1.375rem, 4vw,   1.75rem);
+  --fs-h3: clamp(1rem,     3vw,   1.25rem);
+  --fs-h4: clamp(1rem,     2.5vw, 1.125rem);
+  --fs-xl: clamp(1rem,     2.5vw, 1.125rem);
+  --fs-l:  clamp(0.9375rem,2.2vw, 1rem);
+  --fs-m:  clamp(1rem,     2vw,   1.0625rem);
+  --fs-s:  clamp(0.875rem, 1.8vw, 0.9375rem);
+  --fs-xs: clamp(0.75rem,  1.5vw, 0.8125rem);
+
+  /* Layout */
+  --max-w:   768px;
+  --px:      clamp(1rem, 5%, 1.5rem);
+  --section-px: clamp(1rem, 5vw, 2.5rem);
+  --section-pt: clamp(2rem, 5vw, 3rem);
+
+  @media (min-width: 1024px) {
+    --section-pt: clamp(3rem, 5vw, 4.5rem);
+  }
+  --content-gap: clamp(1rem, 3vw, 1.5rem);
+  --c-red-light: #fce8e8;
+}
+
+/* =====================
+   Base
+   ===================== */
+@layer base {
+  html {
+    font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+    font-size: var(--fs-m);
+    line-height: 1.75;
+    letter-spacing: 0.04em;
+    color: var(--c-text);
+    background-color: var(--c-g-000);
+  }
+
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .wrapper {
+    max-width: var(--max-w);
+    margin-inline: auto;
+  }
+
+  .pc-detail {
+    display: none;
+  }
+
+  @media (min-width: 1400px) {
+    .pc-detail {
+      display: block;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 200px;
+      pointer-events: none;
+    }
+
+    .pc-detail__img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* 英数字は Montserrat 本来の字間で組む（日本語の字間を継承させない） */
+  .en {
+    letter-spacing: normal;
+  }
+}

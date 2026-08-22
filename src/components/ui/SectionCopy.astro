@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import titleMark from '../../assets/icon/title-mark.svg';
+
+interface Props {
+  lead: string;
+  quote: string;
+  markType?: 'svg' | 'text';
+  leadSize?: 'large' | 'small';
+  quoteSize?: 'h2' | 'h3';
+  quoteColor?: 'red' | 'default';
+}
+
+const {
+  lead,
+  quote,
+  markType = 'svg',
+  leadSize = 'large',
+  quoteSize = 'h2',
+  quoteColor = 'red',
+} = Astro.props;
+---
+
+<div class="section-copy">
+  <p class:list={['section-copy__lead', `section-copy__lead--${leadSize}`]}>
+    {lead.split('\n').map((line, i) => (
+      <>{line}{i < lead.split('\n').length - 1 && <br />}</>
+    ))}
+  </p>
+  <p class:list={['section-copy__quote', `section-copy__quote--${quoteSize}`, `section-copy__quote--${quoteColor}`]}>
+    {markType === 'svg'
+      ? <Image src={titleMark} alt="" class="section-copy__mark" />
+      : <span class="section-copy__mark-text">&ldquo;</span>
+    }
+    {quote}
+    {markType === 'svg'
+      ? <Image src={titleMark} alt="" class="section-copy__mark section-copy__mark--flip" />
+      : <span class="section-copy__mark-text">&rdquo;</span>
+    }
+  </p>
+</div>
+
+<style>
+  .section-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  /* lead */
+  .section-copy__lead--large {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.7;
+  }
+
+  .section-copy__lead--small {
+    font-size: var(--fs-s);
+    color: var(--c-text-muted);
+  }
+
+  /* quote */
+  .section-copy__quote {
+    font-weight: 700;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .section-copy__quote--h2 { font-size: var(--fs-h2); }
+  .section-copy__quote--h3 { font-size: var(--fs-h3); line-height: 1.4; }
+
+  .section-copy__quote--red    { color: var(--c-red); }
+  .section-copy__quote--default { color: var(--c-text); }
+
+  /* marks */
+  .section-copy__mark {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.5em;
+    height: auto;
+  }
+
+  .section-copy__mark--flip {
+    transform: scale(-1, -1);
+  }
+
+  .section-copy__mark-text {
+    color: var(--c-g-400);
+    font-size: 1.3em;
+    vertical-align: -0.1em;
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import CampaignBanner from './ui/CampaignBanner.astro';
+import SectionCopy from './ui/SectionCopy.astro';
+import mainImg from '../assets/section06-main.jpg';
+import detailImg from '../assets/c-detail-01.png';
+---
+
+<section class="cta-mid">
+
+  <!-- テキスト -->
+  <div class="cta-mid__text">
+    <SectionCopy
+      lead="大切な家族とのつながりが"
+      quote="親の安心な外出を支える"
+      markType="svg"
+      leadSize="large"
+      quoteSize="h2"
+      quoteColor="default"
+    />
+  </div>
+
+  <!-- 写真 + オーバーレイテキスト -->
+  <div class="cta-mid__visual">
+    <div class="cta-mid__img">
+      <Image src={mainImg} alt="" class="cta-mid__img-inner" format="avif" />
+    </div>
+    <Image src={detailImg} alt="" class="cta-mid__detail" format="avif" />
+  </div>
+
+  <!-- キャンペーンバナー -->
+  <CampaignBanner benefit2Label="プレミアムプラン" location="mid" />
+
+</section>
+
+<style>
+  .cta-mid {
+    background-color: var(--c-g-000);
+    padding-bottom: var(--section-pt);
+  }
+
+  /* テキスト */
+  .cta-mid__text {
+    padding-top: var(--section-pt);
+    padding-inline: var(--section-px);
+    padding-bottom: 1rem;
+  }
+
+  /* ビジュアル */
+  .cta-mid__visual {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .cta-mid__img {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .cta-mid__img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .cta-mid__detail {
+    position: absolute;
+    left: 20%;
+    bottom: clamp(-3rem, -5vw, -1.5rem);
+    width: 15%;
+    height: auto;
+  }
+
+
+</style>

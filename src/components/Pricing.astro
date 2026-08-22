@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
+import tableImg from '../assets/section05-table.png';
+---
+
+<section class="pricing" id="pricing">
+  <div class="pricing__inner">
+
+    <Heading title={'月額0円から始められる\n料金プラン'} sub="PLAN" />
+
+    <div class="pricing__table-wrap">
+      <Image src={tableImg} alt="料金プラン比較表" class="pricing__table-img" format="avif" />
+    </div>
+
+    <p class="pricing__note">
+      <span class="pricing__highlight">スマホで位置確認・通知を受け取るには有料プランが必要です。</span>無料プランでも位置記録は行われるため、万が一の際の捜索に役立てることができます。
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .pricing {
+    background-color: var(--c-g-000);
+    padding-top: var(--section-pt);
+  }
+
+  .pricing__inner {
+    padding-inline: var(--section-px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+
+  /* テーブル画像 */
+  .pricing__table-wrap {
+    width: 100%;
+  }
+
+  .pricing__table-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (min-width: 769px) {
+    .pricing__table-img {
+      width: 60%;
+      margin-inline: auto;
+    }
+  }
+
+
+  /* 注記 */
+  .pricing__highlight {
+    background: linear-gradient(transparent 60%, #FFE500 60%);
+  }
+
+  .pricing__note {
+    font-size: var(--fs-m);
+    color: var(--c-text);
+    line-height: 1.75;
+  }
+</style>

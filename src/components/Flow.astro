@@ -1,0 +1,231 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
+import ArrowIcon from './icon/ArrowIcon.astro';
+import flowImg1 from '../assets/section07-flow-01.png';
+import flowImg2 from '../assets/section07-flow-02.png';
+import flowImg3 from '../assets/section07-flow-03.png';
+import flowImg4 from '../assets/section07-flow-04.png';
+
+const steps = [
+  {
+    num: 1,
+    stepLabel: '見守り端末の\n受け取り',
+    img: flowImg1,
+  },
+  {
+    num: 2,
+    stepLabel: 'アカウントの\n新規登録',
+    img: flowImg2,
+  },
+  {
+    num: 3,
+    stepLabel: '見守り登録者/サービス/\nプランの登録',
+    img: flowImg3,
+  },
+  {
+    num: 4,
+    stepLabel: '見守りアプリダウンロード\nと初期設定',
+    img: flowImg4,
+  },
+];
+---
+
+<section class="flow" id="flow">
+  <div class="flow__heading">
+    <Heading title="サービス利用の流れ" sub="FLOW" />
+  </div>
+
+  <div class="swiper flow-swiper">
+    <div class="swiper-wrapper">
+      {steps.map(step => (
+        <div class="swiper-slide flow-slide">
+          <!-- STEP ラベル -->
+          <div class="flow-step__label">
+            <span class="flow-step__badge en">{step.num}</span>
+            <p class="flow-step__text">
+              {step.stepLabel.split('\n').map((l, i) => (
+                <span>{l}{i < step.stepLabel.split('\n').length - 1 && <br />}</span>
+              ))}
+            </p>
+          </div>
+          <!-- カード -->
+          <div class="flow-card">
+            <div class="flow-card__img">
+                <Image src={step.img} alt="" class="flow-card__img-inner" format="avif" />
+              </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="swiper-pagination flow-pagination"></div>
+  </div>
+
+  <div class="flow-nav">
+    <button type="button" class="flow-nav__btn flow-nav__prev" aria-label="前へ">
+      <ArrowIcon fill="var(--c-blue)" size={6} />
+    </button>
+    <button type="button" class="flow-nav__btn flow-nav__next" aria-label="次へ">
+      <ArrowIcon fill="var(--c-blue)" size={6} />
+    </button>
+  </div>
+</section>
+
+<style>
+  .flow {
+    background-color: var(--c-g-100);
+    padding-top: var(--section-pt);
+    padding-bottom: var(--section-pt);
+  }
+
+  .flow__heading {
+    padding-inline: var(--section-px);
+    margin-bottom: var(--content-gap);
+  }
+
+
+  /* Swiper */
+  .flow-swiper {
+    width: 100%;
+    padding: 0 var(--section-px) 2.5rem;
+  }
+
+  .flow-slide {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* STEPラベル */
+  .flow-step__label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .flow-step__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    background-color: var(--c-blue);
+    color: var(--c-g-000);
+    font-size: var(--fs-m);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .flow-step__text {
+    font-size: var(--fs-s);
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.5;
+  }
+
+  /* カード */
+  .flow-card {
+    background-color: var(--c-g-000);
+    border: 2px solid var(--c-blue);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .flow-card__img {
+    width: 60%;
+  }
+
+  .flow-card__img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ページネーション */
+  :global(.flow-pagination) {
+    bottom: 0.25rem !important;
+  }
+
+  :global(.flow-pagination .swiper-pagination-bullet) {
+    background-color: var(--c-g-300);
+    opacity: 1;
+  }
+
+  :global(.flow-pagination .swiper-pagination-bullet-active) {
+    background-color: var(--c-blue);
+  }
+
+  /* ナビゲーションボタン */
+  .flow-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding-inline: var(--section-px);
+    margin-top: 0.5rem;
+  }
+
+  .flow-nav__btn {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    border: 2px solid var(--c-blue);
+    background-color: var(--c-g-000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+  }
+
+  .flow-nav__prev :global(svg) {
+    transform: rotate(180deg);
+  }
+
+  .flow-nav__btn.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .flow-nav__btn:not(.swiper-button-disabled):hover {
+      background-color: var(--c-blue);
+    }
+
+    .flow-nav__btn:not(.swiper-button-disabled):hover :global(svg path) {
+      fill: var(--c-g-000);
+    }
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination, Navigation } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+
+  new Swiper('.flow-swiper', {
+    modules: [Pagination, Navigation],
+    slidesPerView: 1.5,
+    spaceBetween: 12,
+    breakpoints: {
+      769: {
+        slidesPerView: 2.5,
+        spaceBetween: 16,
+      },
+    },
+    pagination: {
+      el: '.flow-pagination',
+      clickable: true,
+    },
+    navigation: {
+      prevEl: '.flow-nav__prev',
+      nextEl: '.flow-nav__next',
+    },
+  });
+</script>

@@ -1,0 +1,54 @@
+---
+import { en } from '../../lib/en';
+
+interface Props {
+  title: string;
+  sub?: string;
+  align?: 'left' | 'center';
+  level?: 2 | 3;
+}
+
+const { title, sub, align = 'center', level = 2 } = Astro.props;
+const Tag = `h${level}` as 'h2' | 'h3';
+---
+
+<div class:list={['heading', `heading--${align}`]}>
+  <Tag class="heading__title">
+    {title.split('\n').map((line, i) => (
+      <><Fragment set:html={en(line)} />{i < title.split('\n').length - 1 && <br />}</>
+    ))}
+  </Tag>
+  {sub && <p class="heading__sub">{sub}</p>}
+</div>
+
+<style>
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .heading--center {
+    align-items: center;
+    text-align: center;
+  }
+  .heading--left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .heading__title {
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.05em;
+    color: var(--c-text);
+  }
+
+  .heading__sub {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: normal;
+    color: var(--c-green);
+    text-transform: uppercase;
+  }
+</style>

@@ -1,0 +1,555 @@
+---
+import { Image } from 'astro:assets';
+import iconImg from '../assets/section04-icon.svg';
+import cardImg1 from '../assets/section04-content-01.png';
+import cardImg2 from '../assets/section04-content-02.png';
+import cardImg3 from '../assets/section04-content-03.png';
+import cardImg4 from '../assets/section04-content-04.png';
+import cardImg5 from '../assets/section04-content-05.png';
+import { en } from '../lib/en';
+
+const points = [
+  {
+    id: 'point01',
+    num: '01',
+    img: cardImg1,
+    title: 'お守り型端末で\n所持率をアップ',
+    modalTitle: 'お守り型端末で所持率をアップ',
+    body: '身に着けやすいお守り型で、枕やバッグ、シルバーカーなど、いつも持ち歩くものに取り付けるだけ！日常に溶け込むことで、持ち歩く家族の負担はほぼありません。色もお好みに合わせられます。',
+  },
+  {
+    id: 'point02',
+    num: '02',
+    img: cardImg2,
+    title: '最長6年間\n充電不要',
+    modalTitle: '最長6年間充電不要',
+    body: '低消費電力に特化したBLE（Bluetooth Low Energy）を採用し、最長6年間も充電不要です。1回の充電で最大2ヶ月間のGPS端末に比べて、約30倍長持ちするバッテリーを実現しました。',
+  },
+  {
+    id: 'point03',
+    num: '03',
+    img: cardImg3,
+    title: '全国18万箇所の\n位置情報インフラ',
+    modalTitle: '全国18万箇所の\n位置情報インフラ',
+    body: '駅・店舗・タクシー・地域住民のスマートフォンなど全国18万箇所をネットワーク化。散歩中や買い物中にすれ違うだけで位置情報が自動記録され、特別な操作なく広範囲の見守りを実現します。',
+  },
+  {
+    id: 'point04',
+    num: '04',
+    img: cardImg4,
+    title: '最大3つの端末を\n同時に見守り',
+    modalTitle: '最大3つの端末を\n同時に見守り',
+    body: '見守りサービスでは最大3つの端末の同時利用が可能です。複数取り付けておけば、お出かけされる目的によって持ち物が変わる場合や認知症による軽装での徘徊対策にもなります。',
+  },
+];
+
+const point05 = {
+  num: '05',
+  title: '自治体・企業との取り組みも多数',
+  body: '全国48の自治体で導入。地域と連携し、安心して暮らせる見守りネットワークを広げています。',
+};
+---
+
+<section class="points" id="points">
+  <div class="points__inner">
+
+  <!-- ヘッダー -->
+  <div class="points__header">
+    <p class="points__header-lead">
+      <span class="en">otta</span>で認知症の<em>"ひとり歩き"</em>を<br />
+      <em>"積極的な外出"</em>に変える
+    </p>
+    <h2 class="points__header-title">
+      <span class="points__header-num en">5</span><span class="points__header-sub">つの</span>ポイント
+    </h2>
+    <div class="points__header-illust">
+      <Image src={iconImg} alt="" class="points__header-illust-img" />
+    </div>
+  </div>
+
+  <!-- 01〜04 グリッド -->
+  <div class="points__grid">
+    {points.map(p => (
+      <div class="points__card">
+        <span class="points__num">{p.num}</span>
+        <h3 class="points__card-title">
+          {p.title.split('\n').map((line, i) => (
+            <span><Fragment set:html={en(line)} />{i < p.title.split('\n').length - 1 && <br class="br-sp" />}</span>
+          ))}
+        </h3>
+        <div class="points__card-img">
+          <Image src={p.img} alt="" class="points__card-img-inner" format="avif" />
+        </div>
+        <button type="button" class="points__detail-btn" data-modal={p.id}>
+          詳細を見る <span>+</span>
+        </button>
+      </div>
+    ))}
+
+    <!-- 05 全幅 -->
+    <div class="points__card05">
+      <span class="points__num">{point05.num}</span>
+      <p class="points__card05-title" set:html={en(point05.title)}></p>
+      <div class="points__card05-img">
+        <Image src={cardImg5} alt="" class="points__card05-img-inner" format="avif" />
+      </div>
+      <p class="points__card05-body" set:html={en(point05.body)}></p>
+    </div>
+  </div>
+
+  </div><!-- /.points__inner -->
+</section>
+
+<!-- モーダル -->
+{points.map((p, i) => (
+  <div class="modal" id={p.id} aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby={`modal-title-${p.id}`}>
+    <div class="modal__overlay" data-close></div>
+    <div class="modal__panel">
+      <h2 class="modal__title" id={`modal-title-${p.id}`}>
+        {p.modalTitle.split('\n').map((line, j) => (
+          <span><Fragment set:html={en(line)} />{j < p.modalTitle.split('\n').length - 1 && <br />}</span>
+        ))}
+      </h2>
+      <p class="modal__point-label">POINT{p.num}</p>
+      <div class="modal__img">
+        <Image src={p.img} alt="" class="modal__img-inner" format="avif" />
+      </div>
+      <p class="modal__body" set:html={en(p.body)}></p>
+      <div class="modal__footer">
+        {i > 0 && (
+          <button type="button" class="modal__nav-btn" data-goto={points[i - 1].id}>← 前へ</button>
+        )}
+        <button type="button" class="modal__close" data-close>閉じる ✕</button>
+        {i < points.length - 1 && (
+          <button type="button" class="modal__nav-btn" data-goto={points[i + 1].id}>次へ →</button>
+        )}
+      </div>
+    </div>
+  </div>
+))}
+
+<style>
+  /* ===== セクション ===== */
+  .points {
+    background-color: var(--c-g-000);
+    padding-top: 0;
+  }
+
+  /* ヘッダー（アーク形状） */
+  .points__inner {
+    padding-top: var(--section-pt);
+  }
+
+  .points__header {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: clamp(3.5rem, 10vw, 5rem);
+    padding-inline: var(--section-px);
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .points__header::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--c-red);
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  .points__header::after {
+    content: '';
+    position: absolute;
+    width: 98%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px dashed var(--c-g-000);
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 1%);
+    z-index: 1;
+  }
+
+  .points__header-lead {
+    position: relative;
+    z-index: 1;
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--c-g-000);
+    line-height: 1.3;
+  }
+
+  .points__header-lead em {
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .points__header-title {
+    position: relative;
+    z-index: 1;
+    margin-top: -0.5rem;
+    font-size: clamp(2.25rem, 9vw, 3rem);
+    font-weight: 700;
+    color: var(--c-g-000);
+    line-height: 1.3;
+    letter-spacing: 0.1em;
+  }
+
+  .points__header-num {
+    font-size: clamp(4rem, 15vw, 5.5rem);
+    font-weight: 700;
+    color: var(--c-g-000);
+  }
+
+  .points__header-sub {
+    font-size: var(--fs-h2);
+  }
+
+  .points__header-illust {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: clamp(4rem, 12vw, 6rem);
+  }
+
+  .points__header-illust-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* グリッド */
+  .points__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: clamp(1.5rem, 4vw, 2rem) var(--section-px) clamp(2.5rem, 7vw, 4rem);
+    margin-bottom: 0;
+    background-color: var(--c-g-100);
+    position: relative;
+    z-index: 2;
+  }
+
+  .points__card {
+    background-color: var(--c-g-000);
+    border-radius: 0.75rem;
+    padding: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  @media (min-width: 769px) {
+    .points__card {
+      padding: 1.5rem;
+    }
+  }
+
+  .points__num {
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--c-red);
+    text-align: center;
+    letter-spacing: normal;
+  }
+
+  .points__card-img {
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .points__card-img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .points__card-title {
+    font-size: var(--fs-h3);
+    font-weight: 400;
+    color: var(--c-text);
+    line-height: 1.5;
+    text-align: center;
+  }
+
+
+  .points__detail-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    background-color: var(--c-red);
+    color: var(--c-g-000);
+    font-size: var(--fs-s);
+    font-weight: 700;
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .points__detail-btn span {
+    position: absolute;
+    right: 0.75rem;
+    font-size: 1.5em;
+    line-height: 1;
+  }
+
+  .points__detail-btn:hover { opacity: 0.85; }
+
+  /* 05 */
+  .points__card05 {
+    grid-column: 1 / -1;
+    background-color: var(--c-g-000);
+    border-radius: 0.75rem;
+    padding: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  @media (min-width: 769px) {
+    .points__card05 {
+      padding: 1.5rem;
+    }
+  }
+
+  .points__card05-title {
+    font-size: var(--fs-h3);
+    font-weight: 400;
+    color: var(--c-text);
+    text-align: center;
+  }
+
+  .points__card05-img {
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .points__card05-img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .points__card05-body {
+    font-size: var(--fs-m);
+    color: var(--c-text);
+    line-height: 1.75;
+    text-align: left;
+  }
+
+  /* ===== モーダル ===== */
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+    max-width: var(--max-w);
+    margin-inline: auto;
+  }
+
+  .modal.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--c-g-900);
+    opacity: 0.95;
+  }
+
+  .modal__panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .modal__title {
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--c-g-000);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .modal__point-label {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--c-green);
+    letter-spacing: normal;
+  }
+
+  .modal__img {
+    width: 100%;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .modal__img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .modal__body {
+    font-size: var(--fs-m);
+    color: var(--c-g-100);
+    line-height: 1.75;
+  }
+
+  .modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .modal__nav-btn {
+    background: transparent;
+    border: 1px solid var(--c-g-400);
+    color: var(--c-g-000);
+    font-size: var(--fs-s);
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .modal__nav-btn:hover { opacity: 0.7; }
+
+  .modal__close {
+    background-color: var(--c-red);
+    color: var(--c-g-000);
+    font-size: var(--fs-m);
+    font-weight: 700;
+    padding: 0.625rem 2rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .modal__close:hover { opacity: 0.85; }
+</style>
+
+<script>
+  const lockScroll = () => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+  };
+
+  const unlockScroll = () => {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+  };
+
+  let lastTrigger: HTMLElement | null = null;
+
+  function getFocusables(container: HTMLElement): HTMLElement[] {
+    return Array.from(
+      container.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+      )
+    );
+  }
+
+  function openModal(id: string, trigger: HTMLElement) {
+    lastTrigger = trigger;
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    lockScroll();
+    getFocusables(modal)[0]?.focus();
+  }
+
+  function closeModal(modal: HTMLElement) {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    unlockScroll();
+    lastTrigger?.focus();
+    lastTrigger = null;
+  }
+
+  document.querySelectorAll<HTMLElement>('.modal').forEach(modal => {
+    modal.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeModal(modal); return; }
+      if (e.key === 'Tab') {
+        const focusables = getFocusables(modal);
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      }
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.points__detail-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.modal;
+      if (id) openModal(id, btn);
+    });
+  });
+
+  document.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', () => {
+      const modal = el.closest<HTMLElement>('.modal');
+      if (modal) closeModal(modal);
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = btn.closest<HTMLElement>('.modal');
+      const targetId = btn.dataset.goto;
+      if (!targetId || !current) return;
+      current.classList.remove('is-open');
+      current.setAttribute('aria-hidden', 'true');
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.classList.add('is-open');
+        target.setAttribute('aria-hidden', 'false');
+        getFocusables(target)[0]?.focus();
+      }
+    });
+  });
+</script>

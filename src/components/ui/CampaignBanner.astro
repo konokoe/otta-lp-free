@@ -1,0 +1,308 @@
+---
+import ArrowIcon from '../icon/ArrowIcon.astro';
+import { SHOP_URL, AMAZON_URL } from '../../lib/links';
+import type { CtaLocation } from '../../lib/links';
+
+interface Props {
+  benefit2Label?: string;
+  href?: string;
+  amazonHref?: string;
+  /** GA4 の cta_location に入る設置位置 */
+  location: CtaLocation;
+}
+
+const {
+  benefit2Label = 'プレミアムプラン',
+  href = SHOP_URL,
+  amazonHref = AMAZON_URL,
+  location,
+} = Astro.props;
+---
+
+<div class="banner">
+  <div class="banner__benefits-wrap">
+    <p class="banner__condition">
+      シニア見守り端末 <span class="en">otta.a 5,500</span>円（税込み）を購入すると
+    </p>
+
+    <div class="banner__benefits">
+      <div class="banner__benefit">
+        <span class="banner__benefit-label">契約事務手数料</span>
+        <span class="banner__benefit-value"><span class="en">3,000</span><span class="banner__benefit-unit">円</span><em class="en">OFF</em></span>
+      </div>
+      <div class="banner__divider"></div>
+      <div class="banner__benefit">
+        <span class="banner__benefit-label">{benefit2Label}</span>
+        <span class="banner__benefit-value"><span class="en">1</span><span class="banner__benefit-unit">ヶ月</span><em>無料</em></span>
+      </div>
+    </div>
+  </div>
+
+  <p class="banner__date">
+    <span class="banner__date-inner"><span class="banner__date-text"><span class="en">8/31</span>まで送料無料</span></span>
+  </p>
+
+  <div class="banner__actions">
+    <div class="banner__action">
+      <a
+        href={href}
+        class="banner__cta js-cta"
+        data-cta-shop="official"
+        data-cta-location={location}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>公式ショップで購入</span>
+        <ArrowIcon fill="#FFFFFF" size={6} />
+      </a>
+      <p class="banner__note">※公式ショップサイトに遷移します</p>
+    </div>
+
+    <div class="banner__action">
+      <a
+        href={amazonHref}
+        class="banner__cta banner__cta--amazon js-cta"
+        data-cta-shop="amazon"
+        data-cta-location={location}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span><span class="en">Amazon</span>で購入</span>
+        <ArrowIcon fill="#FFFFFF" size={6} />
+      </a>
+      <p class="banner__note">※<span class="en">Amazon</span>のサイトに遷移します</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .banner {
+    background-color: var(--c-g-000);
+    padding: clamp(1.25rem, 5vw, 1.75rem) 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .banner__benefits-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 0;
+  }
+
+  /* 黄色吹き出し */
+  .banner__condition {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    background-color: var(--c-yellow);
+    color: var(--c-g-000);
+    font-size: var(--fs-s);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .banner__condition::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-top: 0.5rem solid var(--c-yellow);
+  }
+
+  .banner__benefits {
+    width: 100%;
+    background-color: var(--c-g-000);
+    border: 3px solid var(--c-yellow);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .banner__benefit {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 2rem 0.5rem 0.875rem;
+  }
+
+  .banner__divider {
+    width: 3px;
+    background-color: var(--c-yellow);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .banner__benefit-label {
+    font-size: var(--fs-xs);
+    color: var(--c-text);
+    text-align: center;
+  }
+
+  .banner__benefit-value {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--c-yellow);
+    line-height: 1.2;
+  }
+
+  .banner__benefit-value em {
+    font-style: normal;
+  }
+
+  .banner__benefit-unit {
+    font-size: 0.6em;
+  }
+
+  .banner__date {
+    width: 100%;
+    text-align: center;
+  }
+
+  .banner__date-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: var(--fs-h4);
+    font-weight: 700;
+    color: var(--c-red);
+    letter-spacing: 0.2em;
+  }
+
+  .banner__date-inner::before,
+  .banner__date-inner::after {
+    content: '';
+    display: block;
+    width: 0.25rem;
+    height: 1em;
+    background-color: var(--c-red);
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .banner__date-inner::before {
+    transform: rotate(-30deg);
+  }
+
+  .banner__date-inner::after {
+    transform: rotate(30deg);
+  }
+
+  .banner__actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .banner__action {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .banner__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    background-color: var(--c-red);
+    color: var(--c-g-000);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    padding: clamp(0.75rem, 2.5vw, 1rem) 1rem;
+    border-radius: 9999px;
+    border: 2px solid var(--c-red);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+
+  .banner__cta :global(svg path) {
+    transition: fill 0.2s;
+  }
+
+  .banner__cta :global(svg) {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .banner__cta:hover {
+      background-color: var(--c-g-000);
+      color: var(--c-red);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(191, 77, 77, 0.3);
+    }
+
+    .banner__cta:hover :global(svg path) {
+      fill: var(--c-red);
+    }
+
+    .banner__cta:hover :global(svg) {
+      transform: translateY(-50%) translateX(3px);
+    }
+
+    .banner__cta--amazon:hover {
+      color: var(--c-dark);
+      box-shadow: 0 6px 20px rgba(44, 76, 117, 0.3);
+    }
+
+    .banner__cta--amazon:hover :global(svg path) {
+      fill: var(--c-dark);
+    }
+  }
+
+  .banner__cta--amazon {
+    background-color: var(--c-dark);
+    border-color: var(--c-dark);
+  }
+
+  .banner__note {
+    font-size: var(--fs-xs);
+    color: var(--c-text-muted);
+  }
+
+  @media (min-width: 1400px) {
+    .banner__condition {
+      font-size: var(--fs-m);
+    }
+
+    .banner__benefit-label {
+      font-size: var(--fs-s);
+    }
+
+    .banner__benefit-value {
+      font-size: var(--fs-h2);
+    }
+
+    .banner__date-inner {
+      font-size: 1.5rem;
+    }
+
+    .banner__cta {
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+    }
+
+    .banner__note {
+      font-size: var(--fs-s);
+    }
+  }
+</style>

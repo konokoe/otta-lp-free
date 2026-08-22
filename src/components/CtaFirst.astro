@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import CampaignBanner from './ui/CampaignBanner.astro';
+import mainImg from '../assets/section010-main.png';
+import detailImg from '../assets/c-detail-01.png';
+---
+
+<section class="cta-first">
+
+  <!-- 画像 + オーバーレイ -->
+  <div class="cta-first__visual">
+    <Image src={mainImg} alt="" class="cta-first__img" format="avif" />
+    <Image src={detailImg} alt="" class="cta-first__detail" format="avif" />
+  </div>
+
+  <!-- キャンペーンバナー -->
+  <CampaignBanner benefit2Label="プレミアムプラン" location="bottom" />
+
+</section>
+
+<style>
+  .cta-first {
+    background-color: var(--c-g-000);
+  }
+
+  /* ビジュアル */
+  .cta-first__visual {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .cta-first__img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .cta-first__detail {
+    position: absolute;
+    right: 20%;
+    bottom: clamp(-3rem, -5vw, -1.5rem);
+    width: 16.5%;
+    height: auto;
+  }
+
+</style>

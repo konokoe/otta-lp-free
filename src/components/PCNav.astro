@@ -1,0 +1,193 @@
+---
+import { Image } from 'astro:assets';
+import logoSrc from '../assets/logo.svg';
+import ArrowIcon from './icon/ArrowIcon.astro';
+import { SHOP_URL, AMAZON_URL } from '../lib/links';
+import { en } from '../lib/en';
+
+const navItems = [
+  { label: '見守りネットワーク',              href: '#network' },
+  { label: 'otta.aの5つのポイント',           href: '#points' },
+  { label: '料金プラン',                      href: '#pricing' },
+  { label: 'サービス利用の流れ',              href: '#flow' },
+  { label: 'ご利用者の声＆メディア掲載情報',  href: '#voices' },
+  { label: 'アプリでできること',              href: '#app' },
+  { label: 'よくある質問',                   href: '#faq' },
+];
+---
+
+<nav class="pc-nav">
+  <div class="pc-nav__logo-wrap">
+    <Image src={logoSrc} alt="otta" class="pc-nav__logo" />
+  </div>
+
+  <div class="pc-nav__ctas">
+    <a href={SHOP_URL} class="pc-nav__cta js-cta" data-cta-shop="official" data-cta-location="nav" target="_blank" rel="noopener noreferrer">
+      <span>公式ショップで購入</span>
+      <span class="pc-nav__cta-arrow"><ArrowIcon fill="#BF4D4D" size={7} /></span>
+    </a>
+
+    <a href={AMAZON_URL} class="pc-nav__cta pc-nav__cta--amazon js-cta" data-cta-shop="amazon" data-cta-location="nav" target="_blank" rel="noopener noreferrer">
+      <span><span class="en">Amazon</span>で購入</span>
+      <span class="pc-nav__cta-arrow"><ArrowIcon fill="#2C4C75" size={7} /></span>
+    </a>
+  </div>
+
+  <ul class="pc-nav__list">
+    {navItems.map(item => (
+      <li>
+        <a href={item.href} class="pc-nav__item">
+          <span set:html={en(item.label)}></span>
+          <ArrowIcon fill="#AFA99C" size={5} rotate={90} />
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .pc-nav {
+    display: none;
+  }
+
+  @media (min-width: 1400px) {
+    .pc-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: fixed;
+      top: clamp(3.5rem, 12vw, 4.5rem);
+      left: calc((50vw - 384px) * 0.2);
+      width: calc((50vw - 384px) * 0.6);
+      background-color: var(--c-g-000);
+      padding: clamp(1rem, 2vw, 2rem);
+      border-radius: 1rem;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .pc-nav__logo-wrap {
+      display: flex;
+      justify-content: center;
+      padding-block: 0.75rem;
+    }
+
+    .pc-nav__logo {
+      width: 70%;
+      max-width: 200px;
+      height: auto;
+    }
+
+    .pc-nav__ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .pc-nav__cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--c-g-000);
+      color: var(--c-red);
+      border: 0.1875rem solid var(--c-red);
+      font-size: var(--fs-m);
+      font-weight: 700;
+      padding: 0.875rem 0.75rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+      position: relative;
+      text-align: center;
+    }
+
+    .pc-nav__cta:hover {
+      background-color: var(--c-red);
+      color: var(--c-g-000);
+      box-shadow: 0 4px 16px rgba(191, 77, 77, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .pc-nav__cta:hover :global(path) {
+      fill: var(--c-g-000);
+    }
+
+    .pc-nav__cta:focus-visible {
+      outline: 2.5px solid var(--c-red);
+      outline-offset: 3px;
+    }
+
+    .pc-nav__cta--amazon {
+      color: var(--c-dark);
+      border-color: var(--c-dark);
+    }
+
+    .pc-nav__cta--amazon:hover {
+      background-color: var(--c-dark);
+      color: var(--c-g-000);
+      box-shadow: 0 4px 16px rgba(44, 76, 117, 0.35);
+    }
+
+    .pc-nav__cta--amazon:focus-visible {
+      outline-color: var(--c-dark);
+    }
+
+    .pc-nav__cta-arrow {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+    }
+
+    .pc-nav__list {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .pc-nav__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0.5rem;
+      margin-inline: -0.5rem;
+      font-size: var(--fs-s);
+      font-weight: 400;
+      color: var(--c-text);
+      border-bottom: 1px solid var(--c-g-300);
+      transition: background-color 0.2s, color 0.2s, padding-left 0.2s;
+    }
+
+    .pc-nav__item:hover {
+      background-color: var(--c-g-200);
+      color: var(--c-text);
+      padding-left: 1rem;
+    }
+
+    .pc-nav__item:hover :global(svg) {
+      animation: arrowBounce 0.4s ease forwards;
+    }
+
+    .pc-nav__item:focus-visible {
+      outline: 2.5px solid var(--c-green);
+      outline-offset: 2px;
+    }
+
+    li:last-child .pc-nav__item {
+      border-bottom: none;
+    }
+
+    .pc-nav__item :global(svg) {
+      flex-shrink: 0;
+    }
+
+    @keyframes arrowBounce {
+      0%   { transform: rotate(90deg) translateX(0); }
+      40%  { transform: rotate(90deg) translateX(3px); }
+      70%  { transform: rotate(90deg) translateX(-1px); }
+      100% { transform: rotate(90deg) translateX(0); }
+    }
+  }
+</style>

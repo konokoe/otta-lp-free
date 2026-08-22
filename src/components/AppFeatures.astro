@@ -1,0 +1,145 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
+import appImg1 from '../assets/section09-flow-01.png';
+import appImg2 from '../assets/section09-flow-02.png';
+import appImg3 from '../assets/section09-flow-03.png';
+
+const features = [
+  { img: appImg1 },
+  { img: appImg2 },
+  { img: appImg3 },
+];
+---
+
+<section class="app" id="app">
+  <div class="app__heading">
+    <p class="app__badge">
+      <span>＼</span> 有料プラン限定 <span>／</span>
+    </p>
+    <h2 class="app__title">アプリでできること</h2>
+  </div>
+
+  <div class="swiper app-swiper">
+    <div class="swiper-wrapper">
+      {features.map(f => (
+        <div class="swiper-slide app-slide">
+          <div class="app-card">
+            <div class="app-card__img">
+              <Image src={f.img} alt="" class="app-card__img-inner" format="avif" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="swiper-pagination app-pagination"></div>
+  </div>
+</section>
+
+<style>
+  .app {
+    background-color: var(--c-g-000);
+    padding-top: var(--section-pt);
+    padding-bottom: var(--section-pt);
+  }
+
+  /* 見出し */
+  .app__heading {
+    padding-inline: var(--section-px);
+    text-align: center;
+    margin-bottom: var(--content-gap);
+  }
+
+  .app__badge {
+    font-size: var(--fs-m);
+    font-weight: 700;
+    color: var(--c-red);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  .app__title {
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.35;
+  }
+
+  /* Swiper */
+  .app-swiper {
+    width: calc(100% - var(--section-px));
+    background-color: var(--c-blue);
+    padding: var(--content-gap) var(--section-px) 2.5rem;
+    margin-left: var(--section-px);
+    border-radius: 0.75rem 0 0 0.75rem;
+    position: relative;
+  }
+
+  :global(.app-swiper .swiper-wrapper) {
+    align-items: stretch;
+  }
+
+  .app-slide {
+    width: 80%;
+    height: auto;
+  }
+
+  /* カード */
+  .app-card {
+    background-color: var(--c-g-000);
+    border: 2px solid var(--c-blue);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+  }
+
+
+  .app-card__img {
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .app-card__img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ページネーション */
+  :global(.app-pagination) {
+    bottom: 0.25rem !important;
+  }
+
+  :global(.app-pagination .swiper-pagination-bullet) {
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+  }
+
+  :global(.app-pagination .swiper-pagination-bullet-active) {
+    background-color: var(--c-g-000);
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+
+  new Swiper('.app-swiper', {
+    modules: [Pagination],
+    slidesPerView: 1.1,
+    spaceBetween: 12,
+    breakpoints: {
+      769: {
+        slidesPerView: 2.5,
+        spaceBetween: 16,
+      },
+    },
+    pagination: { el: '.app-pagination', clickable: true },
+  });
+</script>

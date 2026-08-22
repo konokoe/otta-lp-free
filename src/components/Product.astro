@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets';
+import mainImg from '../assets/section02-main.jpg';
+import tableImg from '../assets/section02-table.png';
+import SectionCopy from './ui/SectionCopy.astro';
+---
+
+<section class="product" id="product">
+
+  <!-- 製品画像 + ロゴオーバーレイ -->
+  <div class="product__visual">
+    <div class="product__img">
+      <Image src={mainImg} alt="" class="product__img-inner" format="avif" />
+    </div>
+  </div>
+
+  <!-- メインコピー -->
+  <div class="product__copy">
+    <SectionCopy
+      lead={"日常に溶け込むデザインだから、\n自然と持ち歩いてくれる"}
+      quote="小さくて軽い見守り端末"
+      markType="svg"
+      leadSize="large"
+      quoteSize="h2"
+      quoteColor="red"
+    />
+  </div>
+
+  <!-- 比較表 -->
+  <div class="product__table-wrap">
+    <Image src={tableImg} alt="otta.aと一般的な見守り機の比較表" class="product__table-img" format="avif" />
+  </div>
+
+</section>
+
+<style>
+  .product {
+    background-color: var(--c-g-000);
+    padding-top: var(--section-pt);
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+
+  /* 製品画像 + ロゴオーバーレイ */
+  .product__visual {
+    position: relative;
+  }
+
+  .product__img {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .product__img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product__header {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem var(--section-px);
+    white-space: nowrap;
+  }
+
+  .product__logo-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .product__logo {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.2;
+  }
+
+  .product__logo-read {
+    font-size: var(--fs-xs);
+    color: var(--c-text-muted);
+  }
+
+  .product__tagline {
+    font-size: var(--fs-s);
+    color: var(--c-text);
+    line-height: 1.6;
+    border-left: 1px solid var(--c-g-300);
+    padding-left: 0.75rem;
+  }
+
+  /* コピー */
+  .product__copy {
+    padding-inline: var(--section-px);
+  }
+
+  /* 比較表 */
+  .product__table-wrap {
+    padding-inline: var(--section-px);
+  }
+
+  .product__table-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (min-width: 769px) {
+    .product__table-img {
+      width: 60%;
+      margin-inline: auto;
+    }
+  }
+</style>

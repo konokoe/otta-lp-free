@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
+import visualImg from '../assets/section01-main.png';
+import cardImg from '../assets/section01-content-01.jpg';
+---
+
+<section class="concerns" id="concerns">
+  <div class="concerns__inner">
+    <div class="concerns__hero">
+      <Heading title="こんなお悩みありませんか？" />
+
+      <!-- 吹き出し + イラスト（画像で対応） -->
+      <div class="concerns__visual-img">
+        <Image src={visualImg} alt="" class="concerns__visual-img-inner" format="avif" />
+      </div>
+    </div>
+
+    <div class="concerns__cols">
+      <!-- 左カラム：2つのproblemブロック -->
+      <div class="concerns__col-problems">
+        <!-- 統計テキスト -->
+        <div class="concerns__problem">
+          <h3 class="concerns__problem-title">
+            認知症の行方不明者は、<br class="br-pc" />年間<em><span class="en">1.8</span>万人超</em>。
+          </h3>
+          <p class="concerns__problem-body">
+            <span class="en">70</span>歳以上では、<span class="en">1</span>日約<span class="en">6</span>件発生しています。
+          </p>
+        </div>
+
+        <!-- GPS問題 -->
+        <div class="concerns__problem">
+          <h3 class="concerns__problem-title"><span class="en">GPS</span>は持ち続けてもらえない</h3>
+          <p class="concerns__problem-body">
+            充電や管理が負担になり、自然と使われなくなるケースが多いことが自治体の調査で明らかになっています。
+          </p>
+        </div>
+      </div>
+
+      <!-- 右カラム：画像 + テキスト -->
+      <div class="concerns__card">
+        <div class="concerns__card-img">
+          <Image src={cardImg} alt="" class="concerns__card-img-inner" format="avif" />
+        </div>
+        <p class="concerns__card-text">
+          大切な家族を守りたいのに、<span class="concerns__highlight">見守り端末を持ち続けてもらえない。</span><br />
+          そんな悩みを抱えている方も多いのではないでしょうか。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .concerns {
+    background-color: var(--c-g-000);
+    padding-top: var(--section-pt);
+  }
+
+  .concerns__inner {
+    padding-inline: var(--section-px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 見出し + ビジュアルのラッパー */
+  .concerns__hero {
+    margin-inline: calc(var(--section-px) * -1);
+    padding-inline: var(--section-px);
+    padding-top: 4rem;
+    padding-bottom: clamp(1.5rem, 4vw, 2rem);
+    background: linear-gradient(to bottom, #B1BDCC 0%, #ffffff 50%);
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+
+  :global(.concerns__hero .heading__title) {
+    color: #3D5060;
+  }
+
+  /* 上部画像エリア */
+  .concerns__visual-img {
+    width: 100%;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .concerns__visual-img-inner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .concerns__visual-img {
+      max-width: 60%;
+      margin-inline: auto;
+    }
+  }
+
+  /* GPS問題（見出しにアンダーライン） */
+  .concerns__problem-title {
+    font-size: var(--fs-h4);
+    font-weight: 700;
+    color: var(--c-red);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--c-red);
+    margin-bottom: 0.75rem;
+  }
+
+  .concerns__problem-title em {
+    font-style: normal;
+  }
+
+  .concerns__problem-body {
+    font-size: var(--fs-m);
+    color: var(--c-text);
+    line-height: 1.75;
+  }
+
+  /* 改行の出し分け */
+  .br-pc { display: none; }
+
+  @media (min-width: 769px) {
+    .br-pc { display: block; }
+  }
+
+  /* 2カラムレイアウト（PC） */
+  .concerns__cols {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+
+  .concerns__col-problems {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+
+  @media (min-width: 769px) {
+    .concerns__cols {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 2rem;
+    }
+
+    .concerns__col-problems {
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .concerns__card {
+      flex: 1;
+    }
+  }
+
+  /* 画像 + テキストカード（横並び） */
+  .concerns__card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--c-g-100);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    padding: 0.75rem;
+  }
+
+  .concerns__card-img {
+    flex-shrink: 0;
+    width: 42%;
+    aspect-ratio: 3 / 4;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .concerns__card-img-inner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .concerns__highlight {
+    background: linear-gradient(transparent 60%, #FFE500 60%);
+  }
+
+  .concerns__card-text {
+    flex: 1;
+    font-size: var(--fs-m);
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.75;
+  }
+</style>

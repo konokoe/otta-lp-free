@@ -1,0 +1,278 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
+import mediaBg from '../assets/section08-bg.png';
+import tvIcon from '../assets/icon/tv.svg';
+import newspaperIcon from '../assets/icon/newspaper.svg';
+import iconLady from '../assets/section08-icon-lady.png';
+import iconMan from '../assets/section08-icon-man.png';
+import { en } from '../lib/en';
+
+const voices = [
+  {
+    profile: '50代 娘／東京都',
+    gender: 'female',
+    text: '母が「スーパーに行ってくる」と言ったまま夕方になっても帰ってこないので、アプリで位置確認すると駅にいる事がわかりました。電車にのって市外に出てしまう前に無事見つけることができてよかったです。',
+  },
+  {
+    profile: '40代 息子／東京都',
+    gender: 'male',
+    text: '「今日は〇〇に行った」という話をすると、実際とは違う時もあるので、アプリで履歴が分かるのは便利で離れた父との会話のきっかけにもなりました。他社の機器も契約していますが父はボタンを押すなどの使い方がわからないため、ottaは操作不要なところが良かったです。',
+  },
+  {
+    profile: '50代 息子／大阪府',
+    gender: 'male',
+    text: '義母が夜に一人で外に出てしまうことがあり心配だったけど、活動しているのがわかったところや行動範囲がわかったところがよかったです。 夜に外出した際にすぐ気づけて、助かりました。',
+  },
+];
+
+const media = {
+  tv: [
+    'NHK おはよう日本 まちかど情報室',
+    'テレビ東京【ガイアの夜明け】',
+    'TBS「THE TIME,」',
+    'TBS「ひるおび」',
+  ],
+  newspaper: ['朝日新聞'],
+};
+---
+
+<section class="voices" id="voices" style={`--voices-bg: url(${mediaBg.src})`}>
+
+  <!-- ご利用者の声 -->
+  <div class="voices__section">
+    <div class="voices__heading">
+      <Heading title={'ご利用されている\nご家族さまの声'} sub="USER VOICE" />
+    </div>
+
+    <div class="swiper voices-swiper">
+      <div class="swiper-wrapper">
+        {voices.map(v => (
+          <div class="swiper-slide voices-slide">
+            <div class="voices-card">
+              <div class="voices-card__avatar">
+                <Image src={v.gender === 'male' ? iconMan : iconLady} alt="" class="voices-card__avatar-img" format="avif" />
+              </div>
+              <p class:list={['voices-card__profile', v.gender === 'male' ? 'voices-card__profile--male' : '']}><Fragment set:html={en(`（${v.profile}）`)} /></p>
+              <p class="voices-card__text" set:html={en(v.text)}></p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="swiper-pagination voices-pagination"></div>
+    </div>
+  </div>
+
+  <!-- メディア掲載 -->
+  <div class="media">
+    <div class="media__heading">
+      <Heading title="メディア掲載" sub="MEDIA" />
+    </div>
+
+    <div class="media__inner">
+      <div class="media__group">
+        <p class="media__category">
+          <Image src={tvIcon} alt="" class="media__icon" />テレビ
+        </p>
+        <ul class="media__list">
+          {media.tv.map(item => (
+            <li class="media__item" set:html={en(item)}></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="media__group">
+        <p class="media__category">
+          <Image src={newspaperIcon} alt="" class="media__icon" />新聞
+        </p>
+        <ul class="media__list">
+          {media.newspaper.map(item => (
+            <li class="media__item">{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <p class="media__note">※弊社の製品・サービスが紹介されました</p>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .voices {
+    background-color: #EDF4F1;
+    background-image: var(--voices-bg);
+    background-size: cover;
+    background-position: bottom;
+    padding-top: var(--section-pt);
+    padding-bottom: var(--section-pt);
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-pt);
+  }
+
+  /* ご利用者の声 */
+  .voices__heading {
+    padding-inline: var(--section-px);
+    margin-bottom: var(--content-gap);
+  }
+
+  .voices-swiper {
+    width: 100%;
+    padding: 0 var(--section-px) 2.5rem;
+    position: relative;
+  }
+
+  :global(.voices-swiper .swiper-wrapper) {
+    align-items: stretch;
+  }
+
+  .voices-slide {
+    height: auto;
+  }
+
+  .voices-card {
+    background-color: var(--c-g-000);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    height: 100%;
+  }
+
+  .voices-card__avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .voices-card__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .voices-card__profile {
+    font-size: var(--fs-m);
+    color: var(--c-red);
+    font-weight: 700;
+  }
+
+  .voices-card__profile--male {
+    color: var(--c-blue);
+  }
+
+  .voices-card__text {
+    font-size: var(--fs-m);
+    color: var(--c-text);
+    line-height: 1.75;
+    text-align: left;
+    width: 100%;
+  }
+
+  /* ページネーション */
+  :global(.voices-pagination) {
+    bottom: 0.25rem !important;
+  }
+
+  :global(.voices-pagination .swiper-pagination-bullet) {
+    background-color: var(--c-g-300);
+    opacity: 1;
+  }
+
+  :global(.voices-pagination .swiper-pagination-bullet-active) {
+    background-color: var(--c-green);
+  }
+
+  /* メディア掲載 */
+  .media__heading {
+    padding-inline: var(--section-px);
+    margin-bottom: var(--content-gap);
+  }
+
+  .media__inner {
+    margin-inline: var(--section-px);
+    background-color: var(--c-g-000);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  @media (min-width: 769px) {
+    .media__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .media__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .media__category {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--c-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .media__icon {
+    width: 1.5em;
+    height: auto;
+    display: inline-block;
+  }
+
+  .media__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .media__item {
+    font-size: var(--fs-m);
+    color: var(--c-text);
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--c-red);
+    list-style: none;
+  }
+
+  .media__note {
+    font-size: var(--fs-xs);
+    color: var(--c-text-muted);
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+
+  new Swiper('.voices-swiper', {
+    modules: [Pagination],
+    slidesPerView: 1.1,
+    spaceBetween: 12,
+    breakpoints: {
+      769: {
+        slidesPerView: 2.5,
+        spaceBetween: 16,
+      },
+    },
+    pagination: {
+      el: '.voices-pagination',
+      clickable: true,
+    },
+  });
+</script>
