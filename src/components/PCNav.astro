@@ -6,12 +6,11 @@ import { SHOP_URL, AMAZON_URL } from '../lib/links';
 import { en } from '../lib/en';
 
 const navItems = [
-  { label: '見守りネットワーク',              href: '#network' },
-  { label: 'otta.aの5つのポイント',           href: '#points' },
   { label: '料金プラン',                      href: '#pricing' },
+  { label: 'otta.aの5つのポイント',           href: '#points' },
+  { label: '見守りネットワーク',              href: '#network' },
   { label: 'サービス利用の流れ',              href: '#flow' },
-  { label: 'ご利用者の声＆メディア掲載情報',  href: '#voices' },
-  { label: 'アプリでできること',              href: '#app' },
+  { label: 'メディア掲載情報',                href: '#voices' },
   { label: 'よくある質問',                   href: '#faq' },
 ];
 ---
@@ -36,7 +35,13 @@ const navItems = [
   <ul class="pc-nav__list">
     {navItems.map(item => (
       <li>
-        <a href={item.href} class="pc-nav__item">
+        <a
+          href={item.href}
+          class="pc-nav__item js-nav"
+          data-nav-label={item.label}
+          data-nav-target={item.href}
+          data-nav-location="pc-nav"
+        >
           <span set:html={en(item.label)}></span>
           <ArrowIcon fill="#AFA99C" size={5} rotate={90} />
         </a>

@@ -39,7 +39,7 @@ const {
   </div>
 
   <p class="banner__date">
-    <span class="banner__date-inner"><span class="banner__date-text"><span class="en">9/30</span>まで送料無料</span></span>
+    <span class="banner__date-inner"><span class="banner__date-text"><span class="en">9<span class="banner__date-slash">/</span>30</span>まで送料無料</span></span>
   </p>
 
   <div class="banner__actions">
@@ -179,6 +179,12 @@ const {
     font-weight: 700;
     color: var(--c-red);
     letter-spacing: 0.2em;
+  }
+
+  /* 「9/30」のスラッシュ前後にアキをつくる */
+  .banner__date-slash {
+    display: inline-block;
+    margin-inline: 0.25em;
   }
 
   .banner__date-inner::before,

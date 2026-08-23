@@ -6,12 +6,11 @@ import { SHOP_URL, AMAZON_URL } from '../lib/links';
 import { en } from '../lib/en';
 
 const navItems = [
-  { label: '見守りネットワーク',          href: '#network' },
-  { label: 'otta.aの5つのポイント',       href: '#points' },
   { label: '料金プラン',                  href: '#pricing' },
+  { label: 'otta.aの5つのポイント',       href: '#points' },
+  { label: '見守りネットワーク',          href: '#network' },
   { label: 'サービス利用の流れ',          href: '#flow' },
-  { label: 'ご利用者の声&メディア掲載情報', href: '#voices' },
-  { label: 'アプリでできること',          href: '#app' },
+  { label: 'メディア掲載情報',            href: '#voices' },
   { label: 'よくある質問',               href: '#faq' },
 ];
 ---
@@ -43,7 +42,13 @@ const navItems = [
     <!-- ナビ -->
     <nav class="menu__nav">
       {navItems.map(item => (
-        <a href={item.href} class="menu__nav-item">
+        <a
+          href={item.href}
+          class="menu__nav-item js-nav"
+          data-nav-label={item.label}
+          data-nav-target={item.href}
+          data-nav-location="sp-menu"
+        >
           <span set:html={en(item.label)}></span>
           <ArrowIcon fill="rgba(255,255,255,0.6)" size={5} rotate={90} />
         </a>

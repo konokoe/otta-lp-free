@@ -1,30 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import mainImg from '../assets/section02-main.jpg';
 import tableImg from '../assets/section02-table.png';
-import SectionCopy from './ui/SectionCopy.astro';
 ---
 
 <section class="product" id="product">
-
-  <!-- 製品画像 + ロゴオーバーレイ -->
-  <div class="product__visual">
-    <div class="product__img">
-      <Image src={mainImg} alt="" class="product__img-inner" format="avif" />
-    </div>
-  </div>
-
-  <!-- メインコピー -->
-  <div class="product__copy">
-    <SectionCopy
-      lead={"日常に溶け込むデザインだから、\n自然と持ち歩いてくれる"}
-      quote="小さくて軽い見守り端末"
-      markType="svg"
-      leadSize="large"
-      quoteSize="h2"
-      quoteColor="red"
-    />
-  </div>
 
   <!-- 比較表 -->
   <div class="product__table-wrap">
@@ -40,22 +19,6 @@ import SectionCopy from './ui/SectionCopy.astro';
     display: flex;
     flex-direction: column;
     gap: var(--content-gap);
-  }
-
-  /* 製品画像 + ロゴオーバーレイ */
-  .product__visual {
-    position: relative;
-  }
-
-  .product__img {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .product__img-inner {
-    width: 100%;
-    height: auto;
-    display: block;
   }
 
   .product__header {
@@ -94,11 +57,6 @@ import SectionCopy from './ui/SectionCopy.astro';
     line-height: 1.6;
     border-left: 1px solid var(--c-g-300);
     padding-left: 0.75rem;
-  }
-
-  /* コピー */
-  .product__copy {
-    padding-inline: var(--section-px);
   }
 
   /* 比較表 */

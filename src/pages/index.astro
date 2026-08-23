@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import FV from '../components/FV.astro';
-import Concerns from '../components/Concerns.astro';
 import Product from '../components/Product.astro';
 import Network from '../components/Network.astro';
 import Points from '../components/Points.astro';
@@ -10,8 +9,6 @@ import Pricing from '../components/Pricing.astro';
 import CtaMid from '../components/CtaMid.astro';
 import Flow from '../components/Flow.astro';
 import Voices from '../components/Voices.astro';
-import AppFeatures from '../components/AppFeatures.astro';
-import CtaFirst from '../components/CtaFirst.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 ---
@@ -20,16 +17,13 @@ import Footer from '../components/Footer.astro';
   <Header />
   <main>
     <FV />
-    <Concerns />
+    <Pricing />
+    <Points />
     <Product />
     <Network />
-    <Points />
-    <Pricing />
     <CtaMid />
     <Flow />
     <Voices />
-    <AppFeatures />
-    <CtaFirst />
     <FAQ />
   </main>
   <Footer />
