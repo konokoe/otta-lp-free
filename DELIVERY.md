@@ -24,4 +24,4 @@ git checkout dev && npm run build   # dev の dist を戻す
 
 | バージョン | 日付 | main の HEAD | 内容 |
 |---|---|---|---|
-| － | － | － | 未納品 |
+| v1 | 2026-08-23 | `a14c917` | 初回納品。月額0円訴求のLPとして FV を差し替え、セクション構成を整理（Concerns / AppFeatures / CtaFirst を削除、Product は比較表のみ、Voices はメディア掲載のみ）。セクション順を FV → Pricing → Points → Product → Network → CtaMid → Flow → Voices → FAQ に変更。FAQ を5件に整理。ナビにクリック計測属性（`js-nav` / `data-nav-*`）を付与。タイトル・ディスクリプションを刷新 |
