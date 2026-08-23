@@ -24,6 +24,9 @@
   --c-g-900:  #271D11;
   --c-g-1000: #000000;
 
+  /* FV 背景（fv-main / fv-sub の余白色に合わせた生成り色） */
+  --c-cream: #FAF8F6;
+
   /* Text */
   --c-text:       #3E2A25;
   --c-text-muted: #7A7068;

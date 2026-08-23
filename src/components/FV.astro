@@ -1,63 +1,89 @@
 ---
 import { Image } from 'astro:assets';
 import CampaignBanner from './ui/CampaignBanner.astro';
-import img01 from '../assets/fv-images-01.jpg';
-import img02 from '../assets/fv-images-02.jpg';
-import img03 from '../assets/fv-images-03.jpg';
-import detailImg from '../assets/fv-detail-01.png';
-import cDetailImg from '../assets/c-detail-01.png';
+import { en } from '../lib/en';
+import mainImg from '../assets/fv-main.png';
+import subImg from '../assets/fv-sub.png';
+import item01 from '../assets/fv-items-01.png';
+import item02 from '../assets/fv-items-02.png';
+import item03 from '../assets/fv-items-03.png';
 
-const slides = [
-  { id: 1, photo: img01, benefit2Label: 'プレミアムプラン' },
-  { id: 2, photo: img02, benefit2Label: 'プレミアムプラン' },
-  { id: 3, photo: img03, benefit2Label: 'プレミアムプラン' },
+/** 3つの理由カード。iconH はカンプ（375〜390px 幅）での実寸をもとにした clamp */
+const reasons = [
+  {
+    no: 1,
+    label: 'コストの壁',
+    icon: item01,
+    iconH: 'clamp(3rem, 12.3vw, 6rem)',
+    lines: ['月額0円で', '始められる'],
+  },
+  {
+    no: 2,
+    label: '継続の壁',
+    icon: item02,
+    iconH: 'clamp(3.5rem, 14.4vw, 7rem)',
+    lines: ['約6年間、充電不要', '操作もいりません'],
+  },
+  {
+    no: 3,
+    label: '抵抗感の壁',
+    icon: item03,
+    iconH: 'clamp(3.75rem, 15.6vw, 7.5rem)',
+    lines: ['GPSと差別化された', '緩い見守り'],
+  },
 ];
 ---
 
 <section class="fv">
-  <!-- スライダー + コピーエリアのラッパー -->
-  <div class="fv__stage">
-    <!-- Swiper（写真のみ） -->
-    <div class="fv__swiper-wrap">
-    <div class="swiper fv-swiper">
-      <div class="swiper-wrapper">
-        {slides.map(slide => (
-          <div class="swiper-slide fv-slide">
-            <Image src={slide.photo} alt="" class="fv-card__photo" format="avif" />
-          </div>
+  <!-- メインビジュアル -->
+  <h1 class="fv__visual">
+    <Image
+      src={mainImg}
+      alt="家族の安心を、そっと見守る。高齢者向け見守りサービス 月額0円から始められる"
+      class="fv__main"
+      format="avif"
+      loading="eager"
+    />
+  </h1>
+
+  <!-- 3つの理由 -->
+  <div class="fv__reasons">
+    <h2 class="fv__reasons-title" set:html={en('ottaなら続けられる！3つの理由')} />
+
+    <div class="fv__reasons-body">
+      <ul class="fv__reason-list">
+        {reasons.map(reason => (
+          <li class="fv__reason">
+            <p class="fv__reason-label">
+              <span class="fv__reason-no en">{reason.no}</span>{reason.label}
+            </p>
+            <div class="fv__reason-icon">
+              <Image src={reason.icon} alt="" format="avif" style={`height:${reason.iconH}`} />
+            </div>
+            <p class="fv__reason-text">
+              {reason.lines.map(line => (
+                <span class="fv__reason-line" set:html={en(line)} />
+              ))}
+            </p>
+          </li>
         ))}
-      </div>
-    </div>
-    </div>
+      </ul>
 
-    <!-- キャッチコピー（通常フロー） -->
-    <div class="fv__copy">
-      <h1 class="fv__title">
-        お出かけ先まで<br class="br-sp" />見守りが<br class="br-pc" />届いて<br class="br-sp" />はじめて安心に
-      </h1>
-    </div>
-
-    <!-- 端末画像（position で重ねる） -->
-    <div class="fv__detail">
-      <Image src={cDetailImg} alt="otta 端末" class="fv__detail-device" format="avif" />
-      <Image src={detailImg} alt="otta アプリ画面" class="fv__detail-img" format="avif" />
+      <Image src={subImg} alt="" class="fv__town" format="avif" />
     </div>
   </div>
 
-  <!-- キャンペーンバナー（スライドに連動して benefit2Label が変わる） -->
-  <div class="fv__banners">
-    {slides.map((slide, i) => (
-      <div class:list={['fv__banner', i === 0 && 'is-active']} data-index={i}>
-        <CampaignBanner benefit2Label={slide.benefit2Label} location="fv" />
-      </div>
-    ))}
+  <!-- キャンペーンバナー -->
+  <div class="fv__banner">
+    <CampaignBanner location="fv" />
   </div>
 </section>
 
 <style>
   .fv {
-    padding-top: clamp(6rem, 14vw, 7rem);
-    background-color: var(--c-g-100);
+    /* 固定ヘッダーの逃げ。カンプではメインビジュアル上端が 106px / 390px 幅 */
+    padding-top: clamp(6rem, 27.2vw, 7rem);
+    background-color: var(--c-cream);
   }
 
   @media (min-width: 1400px) {
@@ -66,156 +92,148 @@ const slides = [
     }
   }
 
-  /* ステージ（スワイパー＋オーバーレイの基準） */
-  .fv__stage {
-    position: relative;
+  /* メインビジュアル */
+  .fv__visual {
+    margin: 0;
   }
 
-  /* Swiper ラッパー（横はみ出し防止） */
-  .fv__swiper-wrap {
-    overflow: hidden;
-  }
-
-  /* Swiper */
-  .fv-swiper {
-    width: 85%;
-    padding-bottom: 2rem;
-  }
-
-  .fv-slide {
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  }
-
-  /* 人物写真 */
-  .fv-card__photo {
+  .fv__main {
     width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* キャッチコピー（通常フロー） */
-  .fv__copy {
-    background-color: var(--c-g-100);
-    padding: 0 2.5rem 1.75rem;
-  }
-
-  .fv__title {
-    font-size: var(--fs-h3);
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--c-text);
-    letter-spacing: 0.1em;
-  }
-
-  /* 端末画像（position で重ねる） */
-  .fv__detail {
-    position: absolute;
-    right: calc((100% - 85%) / 2 + 0.75rem);
-    bottom: 0;
-    z-index: 10;
-    pointer-events: none;
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .fv__detail-device {
-    width: clamp(5rem, 17vw, 7.5rem);
     height: auto;
-    display: block;
+  }
+
+  /* 3つの理由 */
+  .fv__reasons-title {
+    margin-top: clamp(0.5rem, 2.6vw, 1.25rem);
+    margin-bottom: clamp(0.25rem, 1.5vw, 0.625rem);
+    /* カンプ実測 20.5px / 390px 幅。上限は --fs-h2 と同じ 1.75rem */
+    font-size: clamp(1.125rem, 5.25vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: var(--c-text);
+  }
+
+  .fv__reasons-body {
+    position: relative;
+    /* 街並みイラストのうち、カード下端より下に見える分 */
+    padding-bottom: 8%;
+  }
+
+  /* 街並み（カードの背面に敷く） */
+  .fv__town {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  /* カード枠 */
+  .fv__reason-list {
     position: relative;
     z-index: 1;
-    margin-right: -2.25rem;
-    top: 2rem;
+    margin-inline: clamp(0.75rem, 4.1vw, 2rem);
+    padding-block: clamp(0.75rem, 3.8vw, 1.5rem);
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--c-green);
+    border-radius: 0.5rem;
   }
 
-  .fv__detail-img {
-    width: clamp(6.5rem, 24vw, 9rem);
-    height: auto;
+  .fv__reason {
+    /* ラベル・説明文の文字サイズ。カンプ（390px 幅）の 12px を基準に、
+       狭い端末でも「約6年間、充電不要」が1行に収まるよう幅追従させる */
+    --reason-fs: clamp(0.5rem, 2.8vw, 0.875rem);
+
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 1.5vw;
+  }
+
+  /* 列の区切り（点線） */
+  .fv__reason + .fv__reason {
+    position: relative;
+  }
+
+  .fv__reason + .fv__reason::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    bottom: 0.5rem;
+    border-left: 1px dotted var(--c-green);
+  }
+
+  /* ①コストの壁 */
+  .fv__reason-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding-left: 1vw;
+    font-size: var(--reason-fs);
+    line-height: 1.4;
+    color: var(--c-dark);
+  }
+
+  .fv__reason-no {
+    flex-shrink: 0;
+    width: 1.75em;
+    height: 1.75em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--c-dark);
+    color: var(--c-g-000);
+    font-weight: 700;
+    border-radius: 50%;
+  }
+
+  /* アイコン（3列で高さを揃え、上下中央に置く） */
+  .fv__reason-icon {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: clamp(0.5rem, 4vw, 1.25rem);
+    padding-bottom: clamp(0.25rem, 1.8vw, 0.75rem);
+  }
+
+  .fv__reason-icon :global(img) {
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  /* 説明文 */
+  .fv__reason-text {
+    font-size: var(--reason-fs);
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--c-dark);
+  }
+
+  /* 改行位置はカンプ通りに固定する */
+  .fv__reason-line {
     display: block;
+    white-space: nowrap;
   }
 
-  /* カードのバウンシーアニメーション */
-  :global(.fv-swiper .swiper-slide) {
-    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.6) !important;
-  }
-
-  /* ページネーション */
-  :global(.fv-pagination) {
-    bottom: 0.25rem !important;
-  }
-
-  :global(.fv-pagination .swiper-pagination-bullet) {
-    background-color: var(--c-g-400);
-    opacity: 1;
-  }
-
-  :global(.fv-pagination .swiper-pagination-bullet-active) {
-    background-color: var(--c-green);
-  }
-
-  /* 改行の出し分け */
-  .br-pc { display: none; }
-  .br-sp { display: block; }
-
-  /* PC タイポグラフィ */
-  @media (min-width: 1400px) {
-    .br-sp { display: none; }
-    .br-pc { display: block; }
-
-    .fv__title {
-      font-size: 1.75rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-    }
-
-    .fv-card__photo {
-      aspect-ratio: 640 / 452;
-    }
-  }
-
-  /* バナー切り替え */
-  .fv__banners {
+  /* キャンペーンバナー */
+  .fv__banner {
     position: relative;
     background-color: var(--c-g-000);
-    padding-top: 4rem;
+    padding-top: clamp(1.5rem, 10.3vw, 5rem);
   }
 
-  .fv__banner {
-    display: none;
-  }
-
-  .fv__banner.is-active {
-    display: block;
+  @media (min-width: 1400px) {
+    .fv__reason {
+      --reason-fs: var(--fs-s);
+    }
   }
 </style>
-
-<script>
-  import Swiper from 'swiper';
-  import { Autoplay, EffectCards } from 'swiper/modules';
-  import 'swiper/css';
-  import 'swiper/css/effect-cards';
-
-  const swiper = new Swiper('.fv-swiper', {
-    modules: [Autoplay, EffectCards],
-    effect: 'cards',
-    grabCursor: true,
-    rewind: true,
-    speed: 450,
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    },
-    on: {
-      slideChange(sw) {
-        const banners = document.querySelectorAll('.fv__banner');
-        banners.forEach((b, i) => {
-          b.classList.toggle('is-active', i === sw.realIndex);
-        });
-      },
-    },
-  });
-</script>
