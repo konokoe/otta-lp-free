@@ -12,21 +12,21 @@ import item03 from '../assets/fv-items-03.png';
 const reasons = [
   {
     no: 1,
-    label: 'コストの壁',
+    label: '始めやすい',
     icon: item01,
     iconH: 'clamp(3rem, 12.3vw, 6rem)',
     lines: ['月額0円で', '始められる'],
   },
   {
     no: 2,
-    label: '継続の壁',
+    label: '手間いらず',
     icon: item02,
     iconH: 'clamp(3.5rem, 14.4vw, 7rem)',
     lines: ['約6年間、充電不要', '操作もいりません'],
   },
   {
     no: 3,
-    label: '抵抗感の壁',
+    label: 'ゆるく見守る',
     icon: item03,
     iconH: 'clamp(3.75rem, 15.6vw, 7.5rem)',
     lines: ['GPSと差別化された', '緩い見守り'],
@@ -152,7 +152,9 @@ const reasons = [
     min-width: 0;
     display: flex;
     flex-direction: column;
-    padding-inline: 1.5vw;
+    /* コンテナは --max-w で頭打ちになるため、vw の余白も上限を設ける。
+       これがないと超広幅でラベルが折り返す */
+    padding-inline: min(1.5vw, 0.75rem);
   }
 
   /* 列の区切り（点線） */
@@ -169,12 +171,12 @@ const reasons = [
     border-left: 1px dotted var(--c-green);
   }
 
-  /* ①コストの壁 */
+  /* ①始めやすい */
   .fv__reason-label {
     display: flex;
     align-items: center;
     gap: 0.5em;
-    padding-left: 1vw;
+    padding-left: min(1vw, 0.5rem);
     font-size: var(--reason-fs);
     line-height: 1.4;
     color: var(--c-dark);

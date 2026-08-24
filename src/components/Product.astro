@@ -16,6 +16,10 @@ import tableImg from '../assets/section02-table.png';
   .product {
     background-color: var(--c-g-000);
     padding-top: var(--section-pt);
+    /* 次が色付き背景（Voices の #EDF4F1）のセクションで、
+       あちらの padding-top は色の内側にあり余白として効かない。
+       白背景側で下余白を持つ必要があるため padding-bottom を例外的に付ける */
+    padding-bottom: var(--section-pt);
     display: flex;
     flex-direction: column;
     gap: var(--content-gap);

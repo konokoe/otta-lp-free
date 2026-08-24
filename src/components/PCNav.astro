@@ -6,10 +6,10 @@ import { SHOP_URL, AMAZON_URL } from '../lib/links';
 import { en } from '../lib/en';
 
 const navItems = [
-  { label: '料金プラン',                      href: '#pricing' },
-  { label: 'otta.aの5つのポイント',           href: '#points' },
+  { label: 'otta.aの3つのポイント',           href: '#points' },
   { label: '見守りネットワーク',              href: '#network' },
   { label: 'サービス利用の流れ',              href: '#flow' },
+  { label: '料金プラン',                      href: '#pricing' },
   { label: 'メディア掲載情報',                href: '#voices' },
   { label: 'よくある質問',                   href: '#faq' },
 ];
@@ -62,10 +62,15 @@ const navItems = [
       gap: 1rem;
       position: fixed;
       top: clamp(3.5rem, 12vw, 4.5rem);
-      left: calc((50vw - 384px) * 0.2);
-      width: calc((50vw - 384px) * 0.6);
+      /* 中央 768px のコンテンツ両脇に空く余白 */
+      --gutter: calc(50vw - 384px);
+      /* 余白いっぱいには広げず上限を設け、残りを均等に振って余白内で中央に置く。
+         比率だけで決めると 1400px 付近でナビが細くなりすぎ、CTAの文言が折り返す */
+      --nav-w: min(calc(var(--gutter) - 3rem), 20rem);
+      left: calc((var(--gutter) - var(--nav-w)) / 2);
+      width: var(--nav-w);
       background-color: var(--c-g-000);
-      padding: clamp(1rem, 2vw, 2rem);
+      padding: clamp(0.875rem, 1.4vw, 1.5rem);
       border-radius: 1rem;
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     }
@@ -95,9 +100,11 @@ const navItems = [
       background-color: var(--c-g-000);
       color: var(--c-red);
       border: 0.1875rem solid var(--c-red);
-      font-size: var(--fs-m);
+      font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
       font-weight: 700;
-      padding: 0.875rem 0.75rem;
+      /* 右パディングは矢印アイコンの居場所。文言と重ならないよう広めに取る */
+      padding: 0.875rem 1.5rem;
+      white-space: nowrap;
       border-radius: 0.5rem;
       transition: background-color 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
       position: relative;

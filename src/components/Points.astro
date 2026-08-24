@@ -3,8 +3,6 @@ import { Image } from 'astro:assets';
 import iconImg from '../assets/section04-icon.svg';
 import cardImg1 from '../assets/section04-content-01.png';
 import cardImg2 from '../assets/section04-content-02.png';
-import cardImg3 from '../assets/section04-content-03.png';
-import cardImg4 from '../assets/section04-content-04.png';
 import cardImg5 from '../assets/section04-content-05.png';
 import { en } from '../lib/en';
 
@@ -25,26 +23,10 @@ const points = [
     modalTitle: '最長6年間充電不要',
     body: '低消費電力に特化したBLE（Bluetooth Low Energy）を採用し、最長6年間も充電不要です。1回の充電で最大2ヶ月間のGPS端末に比べて、約30倍長持ちするバッテリーを実現しました。',
   },
-  {
-    id: 'point03',
-    num: '03',
-    img: cardImg3,
-    title: '全国18万箇所の\n位置情報インフラ',
-    modalTitle: '全国18万箇所の\n位置情報インフラ',
-    body: '駅・店舗・タクシー・地域住民のスマートフォンなど全国18万箇所をネットワーク化。散歩中や買い物中にすれ違うだけで位置情報が自動記録され、特別な操作なく広範囲の見守りを実現します。',
-  },
-  {
-    id: 'point04',
-    num: '04',
-    img: cardImg4,
-    title: '最大3つの端末を\n同時に見守り',
-    modalTitle: '最大3つの端末を\n同時に見守り',
-    body: '見守りサービスでは最大3つの端末の同時利用が可能です。複数取り付けておけば、お出かけされる目的によって持ち物が変わる場合や認知症による軽装での徘徊対策にもなります。',
-  },
 ];
 
 const point05 = {
-  num: '05',
+  num: '03',
   title: '自治体・企業との取り組みも多数',
   body: '全国48の自治体で導入。地域と連携し、安心して暮らせる見守りネットワークを広げています。',
 };
@@ -60,14 +42,14 @@ const point05 = {
       <em>"積極的な外出"</em>に変える
     </p>
     <h2 class="points__header-title">
-      <span class="points__header-num en">5</span><span class="points__header-sub">つの</span>ポイント
+      <span class="points__header-num en">3</span><span class="points__header-sub">つの</span>ポイント
     </h2>
     <div class="points__header-illust">
       <Image src={iconImg} alt="" class="points__header-illust-img" />
     </div>
   </div>
 
-  <!-- 01〜04 グリッド -->
+  <!-- 01・02 グリッド -->
   <div class="points__grid">
     {points.map(p => (
       <div class="points__card">

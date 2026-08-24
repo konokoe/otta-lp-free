@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import Heading from './ui/Heading.astro';
 import mapImg from '../assets/section03-main.png';
 import cardImg1 from '../assets/section03-content-01.png';
-import cardImg2 from '../assets/section03-content-02.png';
 import { en } from '../lib/en';
 
 const cards = [
@@ -11,11 +10,6 @@ const cards = [
     img: cardImg1,
     title: '街中に広がる見守り\nスポット',
     body: '駅・コンビニ・電柱・自販機など、街のあらゆる場所に見守りスポット。',
-  },
-  {
-    img: cardImg2,
-    title: '警察と連携した\n見守りネットワーク',
-    body: '万が一の際は、ottaから警察へ位置情報履歴を開示。早期発見につながる。',
   },
 ];
 ---
@@ -107,8 +101,17 @@ const cards = [
   /* 2カード */
   .network__cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* SP は1カラムで全幅に広げる */
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
+  }
+
+  @media (min-width: 769px) {
+    .network__cards {
+      /* 2カラムだった頃の1枚分の幅を保ったまま中央に置く */
+      grid-template-columns: minmax(0, calc((100% - 1rem) / 2));
+      justify-content: center;
+    }
   }
 
   .network__card {
@@ -129,11 +132,8 @@ const cards = [
     display: block;
   }
 
-  .br-sp { display: block; }
-
-  @media (min-width: 769px) {
-    .br-sp { display: none; }
-  }
+  /* 2カラムだった頃の折り返し用。1カラム化で不要になったため常に無効 */
+  .br-sp { display: none; }
 
   .network__card-title {
     font-size: var(--fs-h4);

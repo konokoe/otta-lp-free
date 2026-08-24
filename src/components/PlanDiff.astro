@@ -1,0 +1,185 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
+import { en } from '../lib/en';
+import freeImg from '../assets/20260824-items-01.png';
+import paidImg from '../assets/20260824-items-02.png';
+import plusIcon from '../assets/20260824-items-icon.png';
+
+/** 無料 / 有料の2カラム。数値はカンプ（390px 幅）の実測をもとにした clamp */
+const plans = [
+  {
+    variant: 'free',
+    badge: '無料プランの場合',
+    img: freeImg,
+    title: ['警察と連携した', '見守りネットワーク'],
+    body: '万が一の際は、ottaから警察へ位置情報履歴を開示。早期発見につながる。',
+  },
+  {
+    variant: 'paid',
+    badge: '有料プランの場合',
+    img: paidImg,
+    title: ['アプリによる、', '見守り機能が利用可能'],
+    body: 'アプリによる位置確認とスポット20箇所まで通知設定が可能',
+  },
+];
+---
+
+<section class="plan-diff" id="plan-diff">
+  <div class="plan-diff__inner">
+    <Heading title="無料プランと有料プランの違い" sub="Free vs Paid" />
+
+    <div class="plan-diff__cols">
+      {plans.map(plan => (
+        <>
+          <p
+            class={`plan-diff__badge plan-diff__badge--${plan.variant} plan-diff__item--${plan.variant}`}
+            set:html={en(plan.badge)}
+          />
+          <Image
+            src={plan.img}
+            alt=""
+            class={`plan-diff__img plan-diff__item--${plan.variant}`}
+            format="avif"
+          />
+          <h3 class={`plan-diff__title plan-diff__item--${plan.variant}`}>
+            {plan.title.map(line => (
+              <span class="plan-diff__title-line" set:html={en(line)} />
+            ))}
+          </h3>
+          <p
+            class={`plan-diff__body plan-diff__item--${plan.variant}`}
+            set:html={en(plan.body)}
+          />
+        </>
+      ))}
+
+      <!-- 中央列（＝カラム間のアキ）の画像行に置く「+」 -->
+      <div class="plan-diff__plus" aria-hidden="true">
+        <Image src={plusIcon} alt="" class="plan-diff__plus-img" format="avif" />
+      </div>
+    </div>
+
+    <p class="plan-diff__note">
+      無料プランでご利用の場合は、<br />お父さま、お母さまは操作不要です。
+    </p>
+  </div>
+</section>
+
+<style>
+  .plan-diff {
+    background-color: var(--c-g-000);
+    padding-top: var(--section-pt);
+  }
+
+  .plan-diff__inner {
+    padding-inline: var(--section-px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+
+  /* 共通 Heading は sub を大文字化するが、カンプは "Free vs Paid" の混在表記 */
+  .plan-diff__inner :global(.heading__sub) {
+    text-transform: none;
+  }
+
+  /* ===== 2カラム =====
+     中央列をカラム間のアキ（カンプ実測 49px / コンテンツ幅 358px）そのものとして扱い、
+     「+」をその画像行に置くことで、文字サイズが変わっても位置がずれない */
+  .plan-diff__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13.7% minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    align-items: start;
+  }
+
+  .plan-diff__item--free { grid-column: 1; }
+  .plan-diff__item--paid { grid-column: 3; }
+
+  .plan-diff__badge { grid-row: 1; }
+  .plan-diff__img   { grid-row: 2; }
+  .plan-diff__title { grid-row: 3; }
+  .plan-diff__body  { grid-row: 4; }
+
+  /* バッジ */
+  .plan-diff__badge {
+    /* カンプ実測 14.5px / 390px 幅。上限は本文サイズに合わせる */
+    font-size: clamp(0.8125rem, 3.6vw, 1rem);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--c-g-000);
+    padding-block: clamp(0.4375rem, 2.35vw, 0.75rem);
+    border-radius: 0.5rem;
+    /* 画像行に margin を持たせると行高が画像より高くなり、
+       中央列の「+」の垂直中央が画像中央からずれる */
+    margin-bottom: clamp(0.5rem, 2.8vw, 1rem);
+  }
+
+  .plan-diff__badge--free {
+    background-color: var(--c-blue);
+  }
+
+  .plan-diff__badge--paid {
+    background-color: var(--c-green);
+  }
+
+  /* 画像（角丸・背景は素材に含まれる） */
+  .plan-diff__img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* 見出し */
+  .plan-diff__title {
+    margin-top: clamp(0.5rem, 3vw, 1rem);
+    font-size: clamp(0.875rem, 3.6vw, 1.125rem);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: var(--c-text);
+  }
+
+  /* 改行位置はカンプ通りに固定する */
+  .plan-diff__title-line {
+    display: block;
+  }
+
+  /* 説明文 */
+  .plan-diff__body {
+    margin-top: clamp(0.25rem, 1.6vw, 0.75rem);
+    font-size: clamp(0.75rem, 3.1vw, 1rem);
+    line-height: 1.7;
+    /* html の 0.04em のままだとカンプより1文字早く折り返す */
+    letter-spacing: 0.01em;
+    color: var(--c-text);
+  }
+
+  /* ===== 「+」アイコン ===== */
+  .plan-diff__plus {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+    pointer-events: none;
+  }
+
+  .plan-diff__plus-img {
+    width: clamp(1.75rem, 7.2vw, 3rem);
+    height: auto;
+  }
+
+  /* ===== 注釈バンド ===== */
+  .plan-diff__note {
+    background-color: #F5E3E3;
+    color: var(--c-red);
+    font-size: clamp(0.8125rem, 3.5vw, 1.125rem);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    text-align: center;
+    padding: clamp(0.625rem, 3.3vw, 1.125rem) var(--section-px);
+  }
+</style>
