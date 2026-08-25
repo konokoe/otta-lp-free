@@ -4,7 +4,6 @@ import Heading from './ui/Heading.astro';
 import { en } from '../lib/en';
 import freeImg from '../assets/20260824-items-01.png';
 import paidImg from '../assets/20260824-items-02.png';
-import plusIcon from '../assets/20260824-items-icon.png';
 
 /** 無料 / 有料の2カラム。数値はカンプ（390px 幅）の実測をもとにした clamp */
 const plans = [
@@ -20,7 +19,7 @@ const plans = [
     badge: '有料プランの場合',
     img: paidImg,
     title: ['アプリによる、', '見守り機能が利用可能'],
-    body: 'アプリによる位置確認とスポット20箇所まで通知設定が可能',
+    body: 'アプリによる位置確認とスポットの通知設定が可能。',
   },
 ];
 ---
@@ -53,15 +52,10 @@ const plans = [
           />
         </>
       ))}
-
-      <!-- 中央列（＝カラム間のアキ）の画像行に置く「+」 -->
-      <div class="plan-diff__plus" aria-hidden="true">
-        <Image src={plusIcon} alt="" class="plan-diff__plus-img" format="avif" />
-      </div>
     </div>
 
     <p class="plan-diff__note">
-      無料プランでご利用の場合は、<br />お父さま、お母さまは操作不要です。
+      端末を持つ方の操作は不要です。
     </p>
   </div>
 </section>
@@ -84,18 +78,17 @@ const plans = [
     text-transform: none;
   }
 
-  /* ===== 2カラム =====
-     中央列をカラム間のアキ（カンプ実測 49px / コンテンツ幅 358px）そのものとして扱い、
-     「+」をその画像行に置くことで、文字サイズが変わっても位置がずれない */
+  /* ===== 2カラム ===== */
   .plan-diff__cols {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 13.7% minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: auto auto auto auto;
+    column-gap: 1rem;
     align-items: start;
   }
 
   .plan-diff__item--free { grid-column: 1; }
-  .plan-diff__item--paid { grid-column: 3; }
+  .plan-diff__item--paid { grid-column: 2; }
 
   .plan-diff__badge { grid-row: 1; }
   .plan-diff__img   { grid-row: 2; }
@@ -155,20 +148,6 @@ const plans = [
     /* html の 0.04em のままだとカンプより1文字早く折り返す */
     letter-spacing: 0.01em;
     color: var(--c-text);
-  }
-
-  /* ===== 「+」アイコン ===== */
-  .plan-diff__plus {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: center;
-    justify-self: center;
-    pointer-events: none;
-  }
-
-  .plan-diff__plus-img {
-    width: clamp(1.75rem, 7.2vw, 3rem);
-    height: auto;
   }
 
   /* ===== 注釈バンド ===== */

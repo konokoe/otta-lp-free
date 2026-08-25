@@ -1,9 +1,14 @@
 ---
 import { Image } from 'astro:assets';
+import Heading from './ui/Heading.astro';
 import tableImg from '../assets/section02-table.png';
 ---
 
 <section class="product" id="product">
+
+  <div class="product__heading">
+    <Heading title={'GPSとは違う\n負担の少ない見守り'} sub="Comparison" />
+  </div>
 
   <!-- 比較表 -->
   <div class="product__table-wrap">
@@ -61,6 +66,10 @@ import tableImg from '../assets/section02-table.png';
     line-height: 1.6;
     border-left: 1px solid var(--c-g-300);
     padding-left: 0.75rem;
+  }
+
+  .product__heading {
+    padding-inline: var(--section-px);
   }
 
   /* 比較表 */
