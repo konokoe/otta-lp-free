@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import logoSrc from '../assets/logo.svg';
 import ArrowIcon from './icon/ArrowIcon.astro';
-import { SHOP_URL, AMAZON_URL } from '../lib/links';
+import { SHOP_URL } from '../lib/links';
 import { en } from '../lib/en';
 
 const navItems = [
@@ -34,11 +34,6 @@ const navItems = [
     <a href={SHOP_URL} class="menu__cta-card js-cta" data-cta-shop="official" data-cta-location="menu" target="_blank" rel="noopener noreferrer">
       <span class="menu__cta-text">公式ショップで購入</span>
       <span class="menu__cta-arrow"><ArrowIcon fill="#BF4D4D" size={7} /></span>
-    </a>
-
-    <a href={AMAZON_URL} class="menu__cta-card menu__cta-card--amazon js-cta" data-cta-shop="amazon" data-cta-location="menu" target="_blank" rel="noopener noreferrer">
-      <span class="menu__cta-text"><span class="en">Amazon</span>で購入</span>
-      <span class="menu__cta-arrow"><ArrowIcon fill="#2C4C75" size={7} /></span>
     </a>
 
     <!-- ナビ -->
@@ -164,21 +159,9 @@ const navItems = [
     color: var(--c-red);
   }
 
-  .menu__cta-card--amazon {
-    border-color: var(--c-dark);
-  }
-
-  .menu__cta-card--amazon .menu__cta-text {
-    color: var(--c-dark);
-  }
-
   @media (hover: hover) and (pointer: fine) {
     .menu__cta-card:hover {
       background-color: var(--c-red);
-    }
-
-    .menu__cta-card--amazon:hover {
-      background-color: var(--c-dark);
     }
     .menu__cta-card:hover .menu__cta-text {
       color: var(--c-g-000);

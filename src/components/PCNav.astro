@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import logoSrc from '../assets/logo.svg';
 import ArrowIcon from './icon/ArrowIcon.astro';
-import { SHOP_URL, AMAZON_URL } from '../lib/links';
+import { SHOP_URL } from '../lib/links';
 import { en } from '../lib/en';
 
 const navItems = [
@@ -26,11 +26,6 @@ const navItems = [
     <a href={SHOP_URL} class="pc-nav__cta js-cta" data-cta-shop="official" data-cta-location="nav" target="_blank" rel="noopener noreferrer">
       <span>公式ショップで購入</span>
       <span class="pc-nav__cta-arrow"><ArrowIcon fill="#BF4D4D" size={7} /></span>
-    </a>
-
-    <a href={AMAZON_URL} class="pc-nav__cta pc-nav__cta--amazon js-cta" data-cta-shop="amazon" data-cta-location="nav" target="_blank" rel="noopener noreferrer">
-      <span><span class="en">Amazon</span>で購入</span>
-      <span class="pc-nav__cta-arrow"><ArrowIcon fill="#2C4C75" size={7} /></span>
     </a>
   </div>
 
@@ -127,21 +122,6 @@ const navItems = [
     .pc-nav__cta:focus-visible {
       outline: 2.5px solid var(--c-red);
       outline-offset: 3px;
-    }
-
-    .pc-nav__cta--amazon {
-      color: var(--c-dark);
-      border-color: var(--c-dark);
-    }
-
-    .pc-nav__cta--amazon:hover {
-      background-color: var(--c-dark);
-      color: var(--c-g-000);
-      box-shadow: 0 4px 16px rgba(44, 76, 117, 0.35);
-    }
-
-    .pc-nav__cta--amazon:focus-visible {
-      outline-color: var(--c-dark);
     }
 
     .pc-nav__cta-arrow {

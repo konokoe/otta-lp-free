@@ -1,12 +1,11 @@
 ---
 import ArrowIcon from '../icon/ArrowIcon.astro';
-import { SHOP_URL, AMAZON_URL } from '../../lib/links';
+import { SHOP_URL } from '../../lib/links';
 import type { CtaLocation } from '../../lib/links';
 
 interface Props {
   benefit2Label?: string;
   href?: string;
-  amazonHref?: string;
   /** GA4 の cta_location に入る設置位置 */
   location: CtaLocation;
 }
@@ -14,7 +13,6 @@ interface Props {
 const {
   benefit2Label = 'プレミアムプラン',
   href = SHOP_URL,
-  amazonHref = AMAZON_URL,
   location,
 } = Astro.props;
 ---
@@ -56,21 +54,6 @@ const {
         <ArrowIcon fill="#FFFFFF" size={6} />
       </a>
       <p class="banner__note">※公式ショップサイトに遷移します</p>
-    </div>
-
-    <div class="banner__action">
-      <a
-        href={amazonHref}
-        class="banner__cta banner__cta--amazon js-cta"
-        data-cta-shop="amazon"
-        data-cta-location={location}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span><span class="en">Amazon</span>で購入</span>
-        <ArrowIcon fill="#FFFFFF" size={6} />
-      </a>
-      <p class="banner__note">※<span class="en">Amazon</span>のサイトに遷移します</p>
     </div>
   </div>
 </div>
@@ -265,20 +248,6 @@ const {
     .banner__cta:hover :global(svg) {
       transform: translateY(-50%) translateX(3px);
     }
-
-    .banner__cta--amazon:hover {
-      color: var(--c-dark);
-      box-shadow: 0 6px 20px rgba(44, 76, 117, 0.3);
-    }
-
-    .banner__cta--amazon:hover :global(svg path) {
-      fill: var(--c-dark);
-    }
-  }
-
-  .banner__cta--amazon {
-    background-color: var(--c-dark);
-    border-color: var(--c-dark);
   }
 
   .banner__note {
