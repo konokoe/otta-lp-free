@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import logoSrc from '../assets/logo.svg';
 import ArrowIcon from './icon/ArrowIcon.astro';
-import { SHOP_URL } from '../lib/links';
 import { en } from '../lib/en';
 
 const navItems = [
@@ -29,12 +28,6 @@ const navItems = [
         <span class="menu__close-label">close</span>
       </button>
     </div>
-
-    <!-- 購入CTAカード -->
-    <a href={SHOP_URL} class="menu__cta-card js-cta" data-cta-shop="official" data-cta-location="menu" target="_blank" rel="noopener noreferrer">
-      <span class="menu__cta-text">公式ショップで購入</span>
-      <span class="menu__cta-arrow"><ArrowIcon fill="#BF4D4D" size={7} /></span>
-    </a>
 
     <!-- ナビ -->
     <nav class="menu__nav">
@@ -131,46 +124,6 @@ const navItems = [
   }
 
   /* 購入CTAカード */
-  .menu__cta-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 0 var(--px) 0.5rem;
-    background-color: var(--c-g-000);
-    border: 0.1875rem solid var(--c-red);
-    border-radius: 0.5rem;
-    padding: 0.875rem 0.75rem;
-    transition: background-color 0.2s, color 0.2s;
-  }
-
-  .menu__cta-arrow {
-    position: absolute;
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-  }
-
-  .menu__cta-text {
-    font-size: var(--fs-m);
-    font-weight: 700;
-    color: var(--c-red);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .menu__cta-card:hover {
-      background-color: var(--c-red);
-    }
-    .menu__cta-card:hover .menu__cta-text {
-      color: var(--c-g-000);
-    }
-    .menu__cta-card:hover :global(svg path) {
-      fill: var(--c-g-000);
-    }
-  }
-
   /* ナビ */
   .menu__nav {
     display: flex;

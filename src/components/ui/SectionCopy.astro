@@ -68,7 +68,9 @@ const {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    /* 固定 2rem だと SP でマークが場所を取りすぎ、引用文が折り返す。
+       上限は据え置きで、狭い幅では詰める */
+    gap: clamp(0.5rem, 3vw, 2rem);
   }
 
   .section-copy__quote--h2 { font-size: var(--fs-h2); }
@@ -81,7 +83,9 @@ const {
   .section-copy__mark {
     display: inline-block;
     vertical-align: middle;
-    width: 1.5em;
+    /* 同上。1.5em 固定だと狭い幅で引用文を圧迫する */
+    width: clamp(1.25rem, 6vw, 1.5em);
+    flex-shrink: 0;
     height: auto;
   }
 

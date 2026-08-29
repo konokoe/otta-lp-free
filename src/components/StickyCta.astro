@@ -1,0 +1,112 @@
+---
+import ArrowIcon from './icon/ArrowIcon.astro';
+import { SHOP_URL } from '../lib/links';
+---
+
+<div class="sticky-cta">
+  <a
+    href={SHOP_URL}
+    class="sticky-cta__btn js-cta"
+    data-cta-shop="official"
+    data-cta-location="sticky"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span>公式ショップで購入</span>
+    <ArrowIcon fill="#FFFFFF" size={6} />
+  </a>
+  <p class="sticky-cta__note">※公式ショップサイトに遷移します</p>
+</div>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    /* ヘッダー(50)・メニュー(100)より下。メニューを開いたら隠れる */
+    z-index: 40;
+    width: 100%;
+    /* 本文と同じ 768px の中央カラムに揃える */
+    max-width: var(--max-w);
+    padding-inline: var(--section-px);
+    padding-top: 0.625rem;
+    /* iPhone のホームバー領域を避ける */
+    padding-bottom: calc(0.625rem + env(safe-area-inset-bottom, 0px));
+    background-color: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* 固定ボタンに隠れる分だけページ末尾に余白を足す（実測 100px + 余白） */
+  :global(body) {
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* 1400px 以上は PC ナビに購入ボタンがあるため出さない */
+  @media (min-width: 1400px) {
+    .sticky-cta {
+      display: none;
+    }
+
+    :global(body) {
+      padding-bottom: 0;
+    }
+  }
+
+  .sticky-cta__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    background-color: var(--c-red);
+    color: var(--c-g-000);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    padding: clamp(0.75rem, 2.5vw, 1rem) 1rem;
+    border-radius: 9999px;
+    border: 2px solid var(--c-red);
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+
+  .sticky-cta__btn :global(svg) {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s;
+  }
+
+  .sticky-cta__btn :global(svg path) {
+    transition: fill 0.2s;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sticky-cta__btn:hover {
+      background-color: var(--c-g-000);
+      color: var(--c-red);
+      box-shadow: 0 4px 16px rgba(191, 77, 77, 0.3);
+    }
+
+    .sticky-cta__btn:hover :global(svg path) {
+      fill: var(--c-red);
+    }
+
+    .sticky-cta__btn:hover :global(svg) {
+      transform: translateY(-50%) translateX(3px);
+    }
+  }
+
+  .sticky-cta__note {
+    margin-top: 0.25rem;
+    font-size: var(--fs-xs);
+    color: var(--c-text-muted);
+    text-align: center;
+  }
+
+  .sticky-cta__btn:focus-visible {
+    outline: 2.5px solid var(--c-red);
+    outline-offset: 3px;
+  }
+</style>
