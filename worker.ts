@@ -35,7 +35,21 @@ export default {
     }
 
     const rewrittenUrl = new URL(assetPath + url.search, url.origin);
-    return env.ASSETS.fetch(new Request(rewrittenUrl.toString(), request));
+    const res = await env.ASSETS.fetch(new Request(rewrittenUrl.toString(), request));
+
+    // 確認用のステージングなので HTML はキャッシュさせない。
+    // ここを通さないとデプロイ直後にエッジの古い HTML が返ることがある。
+    // 画像・CSS・JS は Astro がファイル名に内容ハッシュを付けるため、そのままキャッシュさせてよい。
+    const contentType = res.headers.get('Content-Type') ?? '';
+    if (contentType.includes('text/html')) {
+      const headers = new Headers(res.headers);
+      headers.set('Cache-Control', 'no-store, must-revalidate');
+      headers.set('Pragma', 'no-cache');
+      headers.set('Expires', '0');
+      return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
+    }
+
+    return res;
   },
 } satisfies ExportedHandler<Env>;
 
