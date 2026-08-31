@@ -48,7 +48,9 @@ const reasons = [
 
   <!-- 3つの理由 -->
   <div class="fv__reasons">
-    <h2 class="fv__reasons-title" set:html={en('ottaならストレスなく続けられる！3つの理由')} />
+    <h2 class="fv__reasons-title">
+      <span set:html={en('ottaならストレスなく続けられる！')} /><br class="br-sp" /><span set:html={en('3つの理由')} />
+    </h2>
 
     <div class="fv__reasons-body">
       <ul class="fv__reason-list">
@@ -106,6 +108,8 @@ const reasons = [
   .fv__reasons-title {
     margin-top: clamp(0.5rem, 2.6vw, 1.25rem);
     margin-bottom: clamp(0.25rem, 1.5vw, 0.625rem);
+    /* メインビジュアルが全幅なので、このセクションには左右余白が無かった */
+    padding-inline: var(--section-px);
     /* カンプ実測 20.5px / 390px 幅。上限は --fs-h2 と同じ 1.75rem */
     font-size: clamp(1.125rem, 5.25vw, 1.75rem);
     font-weight: 700;
@@ -113,6 +117,17 @@ const reasons = [
     letter-spacing: 0.05em;
     text-align: center;
     color: var(--c-text);
+  }
+
+  /* SP は「3つの理由」の前で改行する */
+  .br-sp {
+    display: block;
+  }
+
+  @media (min-width: 769px) {
+    .br-sp {
+      display: none;
+    }
   }
 
   .fv__reasons-body {
