@@ -36,10 +36,6 @@ const {
     </div>
   </div>
 
-  <p class="banner__date">
-    <span class="banner__date-inner"><span class="banner__date-text"><span class="en">10<span class="banner__date-slash">/</span>31</span>まで送料無料</span></span>
-  </p>
-
   <div class="banner__actions">
     <div class="banner__action">
       <a
@@ -149,46 +145,6 @@ const {
     font-size: 0.6em;
   }
 
-  .banner__date {
-    width: 100%;
-    text-align: center;
-  }
-
-  .banner__date-inner {
-    display: inline-flex;
-    align-items: center;
-    gap: 2rem;
-    font-size: var(--fs-h4);
-    font-weight: 700;
-    color: var(--c-red);
-    letter-spacing: 0.2em;
-  }
-
-  /* 「10/31」のスラッシュ前後にアキをつくる */
-  .banner__date-slash {
-    display: inline-block;
-    margin-inline: 0.25em;
-  }
-
-  .banner__date-inner::before,
-  .banner__date-inner::after {
-    content: '';
-    display: block;
-    width: 0.25rem;
-    height: 1em;
-    background-color: var(--c-red);
-    border-radius: 9999px;
-    flex-shrink: 0;
-  }
-
-  .banner__date-inner::before {
-    transform: rotate(-30deg);
-  }
-
-  .banner__date-inner::after {
-    transform: rotate(30deg);
-  }
-
   .banner__actions {
     width: 100%;
     display: flex;
@@ -266,10 +222,6 @@ const {
 
     .banner__benefit-value {
       font-size: var(--fs-h2);
-    }
-
-    .banner__date-inner {
-      font-size: 1.5rem;
     }
 
     .banner__cta {
